@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>main.qml</file>
+        <file>loginForm.qml</file>
+        <file>AppTheme.qml</file>
+        <file>InputField.qml</file>
+        <file>AppButton.qml</file>
+        <file>RegisterScreen.qml</file>
+        <file>mainScreen.qml</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>
