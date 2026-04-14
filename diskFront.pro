@@ -19,7 +19,8 @@ SOURCES += \
     Controllers/AppController.cpp \
     models/usermodel.cpp \
     Controllers/authcontroller.cpp \
-    models/transfermodel.cpp
+    models/transfermodel.cpp \
+    Controllers/filecontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,13 +37,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     models/filemodel.h \
-    fileinfo.h \
     apiservice.h \
     Utils/apiresponse.h \
     Controllers/AppController.h \
     models/usermodel.h \
     Controllers/authcontroller.h \
-    models/transfermodel.h
+    models/transfermodel.h \
+    Utils/fileitem.h \
+    Controllers/filecontroller.h
 
 DISTFILES += \
     loginForm.qml \
@@ -51,4 +53,5 @@ DISTFILES += \
     InputField.qml \
     AppButton.qml \
     RegisterScreen.qml \
-    mainScreen.qml
+    mainScreen.qml \
+    QuotaBar.qml

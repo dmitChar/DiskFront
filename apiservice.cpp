@@ -5,6 +5,8 @@
 #include <QJsonObject>
 #include <QUrlQuery>
 #include <QUrl>
+#include <QHttpMultiPart>
+#include <QMimeDatabase>
 
 APIService::APIService(QObject *parent)
     : QObject(parent), m_netManager(new QNetworkAccessManager)
@@ -125,6 +127,12 @@ void APIService::sendGet(const QString &endpoint, const QUrlQuery &query, ApiCal
     handleReply(reply, std::move(cb));
 }
 
+void APIService::sendDelete(const QString &endpoint, const QUrlQuery &q, ApiCallback cb)
+{
+    auto *reply = m_netManager->deleteResource(makeRequest(endpoint, q));
+    handleReply(reply, std::move(cb));
+}
+
 //--------------- Auth api ----------------
 
 void APIService::postLogin(const QString &login, const QString &passwd, ApiCallback cb)
@@ -134,6 +142,11 @@ void APIService::postLogin(const QString &login, const QString &passwd, ApiCallb
     obj["password"] = passwd;
 
     sendPost(QString("/api/auth/login"), obj, std::move(cb));
+}
+
+void APIService::postLogout(ApiCallback cb)
+{
+    sendPost(QString("/api/auth/logout"), {}, std::move(cb));
 }
 
 void APIService::getMe(ApiCallback cb)
@@ -152,30 +165,92 @@ void APIService::postRegister(const QString &login, const QString &email, const 
 
 }
 
-//void APIService::getAllFiles()
-//{
-//    QNetworkRequest request(QUrl(""));
+//--------------- FILES API ----------------
 
-//    auto reply = m_netManager.get(request);
+void APIService::getFiles(const QString &path, ApiCallback cb)
+{
+    QUrlQuery q;
+    q.addQueryItem("path", path);
+    sendGet("/api/files", q, std::move(cb));
+}
 
-//    connect(reply, &QNetworkReply::finished, this, [=]()
-//    {
-//        QVector<FileInfo> files;
-//        auto json = QJsonDocument::fromJson(reply->readAll());
-//        auto array = json.array();
+void APIService::postMkdir(const QString &path, ApiCallback cb)
+{
+    sendPost("/api/files/mkdir", {{"path", path}}, std::move(cb));
+}
 
-//        for (auto item : array)
-//        {
-//            QJsonObject obj = item.toObject();
-//            FileInfo file;
-//            file.id = obj["id"].toString();
-//            file.name = obj["name"].toString();
+void APIService::postCopy(const QString &from, const QString &to, ApiCallback cb)
+{
+    sendPost("/api/files/copy", {{"from", from}, {"to", to}}, std::move(cb));
+}
 
-//            files.append(file);
-//        }
-//        emit filesReceived(files);
-//    });
+void APIService::postMove(const QString &from, const QString &to, ApiCallback cb)
+{
+    sendPost("/api/files/move", {{"from", from}, {"to", to}}, std::move(cb));
+}
 
-//}
+void APIService::deleteItem(const QString &path, ApiCallback cb)
+{
+    QUrlQuery q;
+    q.addQueryItem("path", path);
+    sendDelete("/api/files", q, std::move(cb));
+}
+
+void APIService::getFileInfo(const QString &path, ApiCallback cb)
+{
+    QUrlQuery q;
+    q.addQueryItem("path", path);
+    sendGet("/api/files/info", q, std::move(cb));
+}
+
+/**
+ * @brief APIService::uploadFile Функция, отправляющая POST запрос для загрузки файла на сервер по указанному пути
+ * @param serverPath Путь папки на сервере, в которую необходимо добавить файл
+ * @param localPath Путь файла на клиенте
+ * @param fileName Название файла
+ * @param data Сам файл(данные)
+ * @return Результат выполнения запроса
+ */
+QNetworkReply *APIService::uploadFile(const QString &serverDir, const QString &localPath, const QString &fileName, const QByteArray &data)
+{
+    QUrl url(m_baseUrl + "/api/files/upload");
+    QUrlQuery q;
+    q.addQueryItem("path", serverDir);
+    url.setQuery(q);
+
+    QNetworkRequest req(url);
+    if (!m_token.isEmpty())
+        req.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
+
+    auto *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+
+    QHttpPart filePart;
+    filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"file\"; filename=\"%1\"").arg(fileName));
+
+    QMimeDatabase db;
+    QString mime = db.mimeTypeForFileNameAndData(localPath, data).name();
+    filePart.setHeader(QNetworkRequest::ContentTypeHeader, mime);
+    filePart.setBody(data);
+    multipart->append(filePart);
+
+    auto *reply = m_netManager->post(req, multipart);
+    multipart->setParent(reply);
+    return reply;
+
+}
+
+/**
+ * @brief APIService::downloadFile Функция, отправляющая GET запрос на сервер для скачивания с него файла по указанному пути
+ * @param path Путь файла на сервере
+ * @return Результат выполенения запроса
+ */
+QNetworkReply *APIService::downloadFile(const QString &path)
+{
+    QUrlQuery q;
+    q.addQueryItem("path", path);
+    return m_netManager->get(makeRequest("/api/files/download", q));
+}
+
+
 
 

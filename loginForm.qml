@@ -164,6 +164,18 @@ Rectangle
                 }
             }
         }
+
+    }
+
+    // Очистка поля при переходе в новое состояние
+    Connections
+    {
+        target: AuthController
+        onAuthStateChanged:
+        {
+            loginField.value = ""
+            passField.value = ""
+        }
     }
 
     function doLogin()

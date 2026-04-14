@@ -17,7 +17,7 @@ ApplicationWindow {
     {
         id:stack
         anchors.fill: parent
-        initialItem: !AuthController.loggedIn ? "mainScreen.qml" : "loginForm.qml"
+        initialItem: !AuthController.loggedIn ? "loginForm.qml" : "loginForm.qml"
         //Component {id: loginScreen; loginForm {}}
 
     }
@@ -43,6 +43,11 @@ ApplicationWindow {
         onLoginSuccess:
         {
             stack.push("mainScreen.qml")
+        }
+
+        onLogoutSuccess:
+        {
+            stack.pop()
         }
 
     }

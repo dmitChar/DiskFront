@@ -5,8 +5,8 @@
 #include <QNetworkAccessManager>
 #include <functional>
 
-#include "fileinfo.h"
 #include "Utils/apiresponse.h"
+#include "Utils/fileitem.h"
 
 using ApiCallback = std::function<void(ApiResponse)>;
 
@@ -19,8 +19,19 @@ public:
 
     //---- Auth api ------
     void postLogin(const QString & login, const QString &passwd, ApiCallback cb);
+    void postLogout(ApiCallback cb);
     void getMe(ApiCallback cb);
     void postRegister(const QString &login, const QString &email, const QString password, ApiCallback cb);
+
+    //---- FILES API ------
+    void getFiles(const QString &path, ApiCallback cb);
+    void getFileInfo(const QString &path, ApiCallback cb);
+    void postMkdir(const QString &path, ApiCallback cb);
+    void postCopy(const QString &from, const QString &to, ApiCallback cb);
+    void postMove(const QString &from, const QString &to, ApiCallback cb);
+    void deleteItem(const QString &path, ApiCallback cb);
+    QNetworkReply *uploadFile(const QString &serverDir, const QString &localPath, const QString &fileName, const QByteArray &data);
+    QNetworkReply *downloadFile(const QString &path);
 
     //---- Service ------
     void setBaseUrl(const QString &newBaseUrl);
@@ -32,6 +43,7 @@ private:
     //----- Basic Senders ------
     void sendPost(const QString &endpoint, const QJsonObject &body, ApiCallback cb);
     void sendGet(const QString &endpoint, const QUrlQuery &query, ApiCallback cb);
+    void sendDelete(const QString &endpoint, const QUrlQuery &q, ApiCallback cb);
 
     //---- Service ------
     void handleReply(QNetworkReply *reply, ApiCallback cb);
@@ -45,7 +57,7 @@ private:
     QString m_token;
 
 signals:
-    void filesReceived(QVector<FileInfo> files);
+    void filesReceived(QVector<FileItem> files);
     void networkError(const QString &error);
     void tokenChanged();
     void baseUrlChanged();

@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("controller", &controller);
     engine.rootContext()->setContextProperty("AuthController", controller.getAuth());
-    //engine.rootContext()->setContextProperty("FileController", controller.ge);
+    engine.rootContext()->setContextProperty("FileController", controller.getFileCtrl());
+    engine.rootContext()->setContextProperty("User", controller.getUserModel());
 
     qmlRegisterSingletonType(QUrl("qrc:/qml/AppTheme.qml"), "AppTheme", 1, 0, "AppTheme");
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));

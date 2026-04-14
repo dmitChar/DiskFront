@@ -75,7 +75,24 @@ void AuthController::registerUser(const QString &login, const QString &email, co
 
 void AuthController::logout()
 {
+    setBusy(true);
+    setError({});
 
+    m_api->postLogout([this] (ApiResponse r)
+    {
+        setBusy(false);
+        if (r.succes)
+        {
+            setError(r.errorMsg);
+            return;
+        }
+        m_settings.remove("auth/token");
+        m_api->setToken({});
+        m_user->clear();
+        m_loggedIn = false;
+    });
+    emit authStateChanged();
+    emit logoutSuccess();
 }
 
 void AuthController::loadSavedSession()

@@ -9,7 +9,20 @@ UserModel::UserModel(QObject *parent) : QObject(parent)
 
 void UserModel::setUserFromJson(QJsonObject obj)
 {
-    m_userId = obj["id"].toVariant().toLongLong();
+    m_userId   = obj["id"].toVariant().toLongLong();
+    m_username = obj["username"].toString();
+    m_email    = obj["email"].toString();
+    m_quotaBytes = obj["quotaBytes"].toVariant().toLongLong();
+    m_usedBytes  = obj["usedBytes"].toVariant().toLongLong();
+    emit userChanged();
+    emit quotaChanged();
+}
+
+void UserModel::clear()
+{
+    m_userId = 0; m_username.clear(); m_email.clear();
+    m_quotaBytes = 0; m_usedBytes = 0;
+    emit userChanged(); emit quotaChanged();
 }
 
 QString UserModel::humanize(qint64 bytes)

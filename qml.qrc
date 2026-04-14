@@ -7,6 +7,7 @@
         <file>AppButton.qml</file>
         <file>RegisterScreen.qml</file>
         <file>mainScreen.qml</file>
+        <file>QuotaBar.qml</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>
 </RCC>

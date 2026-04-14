@@ -37,9 +37,9 @@ struct Transfer
         switch (state)
         {
             case TransferState::Pending: return "pending";
-            case TransferState::Active: return "active";
-            case TransferState::Done: return "done";
-            case TransferState::Failed: return "failed";
+            case TransferState::Active:  return "active";
+            case TransferState::Done:    return "done";
+            case TransferState::Failed:  return "failed";
         }
         return {};
     }
@@ -48,6 +48,7 @@ struct Transfer
 class TransferModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(int activeCount READ activeCount  NOTIFY activeCountChanged)
 public:
     explicit TransferModel(QObject *parent = nullptr);
 
@@ -75,10 +76,18 @@ public:
 private:
     int indexById(int id) const;
     void connectReply(int id, QNetworkReply *reply, bool isUpload);
+    void updateProgress(int id, qint64 done, qint64 total);
+
+    void setFailed(int id, const QString &errorMsg);
+    void setDone(int id);
+
 
     QVector<Transfer> m_transfers;
+    int m_nextId = 1;       // Id для трансферов
 
 signals:
+    void activeCountChanged();
+    void transferCompleted(int id, bool success, const QString &name);
 
 public slots:
 };

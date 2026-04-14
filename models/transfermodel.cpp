@@ -1,4 +1,5 @@
 #include "transfermodel.h"
+#include <QFile>
 
 TransferModel::TransferModel(QObject *parent) : QAbstractListModel(parent)
 {
@@ -62,15 +63,111 @@ int TransferModel::indexById(int id) const
 
 int TransferModel::addUpload(const QString &name, const QString &remotePath, QNetworkReply *reply)
 {
+    int id = m_nextId++;
+    Transfer t;
+    t.id = id; t.name = name;
+    t.path = remotePath; t.isUpload = true;
+    t.state = TransferState::Active; t.reply = reply;
 
+    beginInsertRows({}, 0, 0);
+    m_transfers.prepend(t);
+    endInsertRows();
+
+    connectReply(id, reply, true);
+    emit activeCountChanged();
+    return id;
 }
 
 int TransferModel::addDownload(const QString &name, const QString &remotePath, const QString &localPath, QNetworkReply *reply)
 {
+    int id = m_nextId++;
+    Transfer t;
+    t.id = id; t.name = name;
+    t.path = remotePath; t.localPath = localPath;
+    t.isUpload = false; t.state = TransferState::Active; t.reply = reply;
 
+    beginInsertRows({}, 0, 0);
+    m_transfers.prepend(t);
+    endInsertRows();
+    connectReply(id, reply, false);
+    emit activeCountChanged();
+    return id;
 }
 
 void TransferModel::connectReply(int id, QNetworkReply *reply, bool isUpload)
 {
+    auto progressSignal = isUpload ? &QNetworkReply::uploadProgress : &QNetworkReply::downloadProgress;
 
+    connect(reply, progressSignal, this, [this, id] (qint64 done, qint64 total)
+    {
+        updateProgress(id, done, total);
+    });
+
+    connect(reply, &QNetworkReply::finished, this, [this, id, reply, isUpload]
+    {
+        if (reply->error() != QNetworkReply::NoError)
+        {
+            setFailed(id, reply->errorString());
+        }
+        else
+        {
+            int idx = indexById(id);
+            if (!isUpload && idx >= 0)
+            {
+                // Сохранение загруженного файла
+                const QString &localPath = m_transfers[idx].localPath;
+                if (!localPath.isEmpty())
+                {
+                    QFile f(localPath);
+                    if (f.open(QIODevice::WriteOnly))
+                    {
+                        f.write(reply->readAll());
+                        f.close();
+                    }
+                }
+            }
+            setDone(id);
+        }
+        reply->deleteLater();
+    });
+}
+
+void TransferModel::setFailed(int id, const QString &errorMsg)
+{
+    int idx = indexById(id);
+    if (idx < 0) return;
+    m_transfers[idx].state = TransferState::Failed;
+    m_transfers[idx].errorMsg = errorMsg;
+
+    auto mi = index(idx);
+    emit dataChanged(mi, mi, {StateRole, ErrorRole});
+    emit transferCompleted(id, false, m_transfers[idx].name);
+    emit activeCountChanged();
+}
+
+// Функция, уведомляющая о том, что завершена загузка файла с id
+// id - Transfer.id
+// idx - индекс в модели QVector<Transfer> m_transfers
+// mi - индекс в отображаемой модели
+void TransferModel::setDone(int id)
+{
+    int idx = indexById(id);
+    if (idx < 0) return;
+    m_transfers[idx].state = TransferState::Done;
+    m_transfers[idx].bytesDone = m_transfers[idx].bytesTotal;
+
+    auto mi = index(idx);
+    emit dataChanged(mi, mi, {StateRole, ProgressRole});    // Обновление данных в отбражении
+    emit transferCompleted(id, true, m_transfers[idx].name);
+    emit activeCountChanged();
+}
+
+void TransferModel::updateProgress(int id, qint64 done, qint64 total)
+{
+    int idx = indexById(id);
+    if (idx < 0) return;
+    m_transfers[idx].bytesDone = done;
+    m_transfers[idx].bytesDone = total;
+    auto mi = index(idx);
+    emit dataChanged(mi, mi, {ProgressRole});
 }

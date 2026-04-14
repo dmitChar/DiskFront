@@ -8,8 +8,8 @@ Rectangle
 {
     id: root
     color: AppTheme.sidebarBg
-    width: parent.width
-    height: parent.height
+//    width: parent.width
+//    height: parent.height
 
     signal switchToLogin() // Переход на окно регистрации
 

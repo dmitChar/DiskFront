@@ -33,6 +33,7 @@ public:
 
 public:
     void setUserFromJson(QJsonObject obj);
+    void clear();
 
 private:
     qint64  m_userId = 0;
