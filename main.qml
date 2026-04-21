@@ -1,7 +1,7 @@
-import QtQuick
-import QtQuick.Window
-import QtQuick.Layouts
-import QtQuick.Controls
+import QtQuick 2.9
+import QtQuick.Window 2.2
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.2
 
 
 import AppTheme 1.0
@@ -21,6 +21,16 @@ ApplicationWindow {
         //Component {id: loginScreen; loginForm {}}
 
     }
+
+    Connections
+    {
+        target: TransferModel
+        onActiveCountChanged:
+        {
+            console.log(TransferModel.activeCount)
+        }
+    }
+
     //----- Переходы окон из loginForm -------
     Connections
     {
@@ -49,7 +59,6 @@ ApplicationWindow {
         {
             stack.pop()
         }
-
     }
 
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkReply>
 #include <QAbstractListModel>
+#include <QSortFilterProxyModel>
 
 enum class TransferState
 {
@@ -67,10 +68,12 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    // Функция
+    // Функции
     int addUpload(const QString &name, const QString &remotePath, QNetworkReply *reply);
     int addDownload(const QString &name, const QString &remotePath, const QString &localPath, QNetworkReply *reply);
-    int activeCount() const;
+
+    Q_INVOKABLE int activeCount() const;
+    Q_INVOKABLE void clearCompleted();
 
 
 private:

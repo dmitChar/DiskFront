@@ -1,10 +1,13 @@
 import QtQuick 2.9
+import QtQuick.Controls 2.2
+import AppTheme 1.0
 
 // Кастомный виджет для отобржаения файла в GridView
 Rectangle
 {
     id: root
     property string iconName: "file"
+    property int iconSize: 64
     property string fileName: "unknown"
     property string fileSize: "0"
     property string fileDate: "value"
@@ -12,13 +15,14 @@ Rectangle
     property bool isShared: false
     property bool selected: false
 
-    signal leftClicked()                    // Просто лкм
+    signal clicked()                        // Просто лкм
     signal doubleClicked()                  // Двойное нажатия -> открытие файла
-    signal rightClicked(reax x, real y)     // Пкм -> открытие  contextMenu
+    signal rightClicked(real x, real y)     // Пкм -> открытие  contextMenu
 
-    width: 150
-    height: 160
+    width: 100
+    height: 145
     radius: AppTheme.radiusSm
+    z:999
 
     color: selected ? AppTheme.accentLight : (cardMouseArea.containsMouse ? AppTheme.surfaceAlt : AppTheme.surface)
     border.color: selected ? AppTheme.accent : AppTheme.border
@@ -47,11 +51,13 @@ Rectangle
             radius: AppTheme.radiusMd
             color: root.isDir ? AppTheme.warningLight : AppTheme.accentLight
 
-            Text
+            Image
             {
                 anchors.centerIn: parent
-                text: AppTheme.iconForType(root.iconName)
-                font.pixelSize: 32
+                source: AppTheme.iconForType(root.iconName)
+                height: root.iconSize
+                width: root.iconSize
+                fillMode: Image.PreserveAspectFit
             }
 
             // Share badge
@@ -77,7 +83,7 @@ Rectangle
             width: parent.width
             text: root.fileName
             font.family: AppTheme.fontFamily
-            font.pixelSize: AppTheme.fontMd
+            font.pixelSize: AppTheme.fontSm
             font.weight: Font.Medium
             color: AppTheme.textPrimary
             horizontalAlignment: Text.AlignHCenter
@@ -86,14 +92,16 @@ Rectangle
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
+        // Размер файла под иконкой
         Text
         {
             width: parent.width
+            anchors {topMargin: 5; }
             text: root.isDir ? "" : root.fileSize
             font.family: AppTheme.fontFamily
             font.pixelSize: AppTheme.fontSm
             color: AppTheme.textHint
-            horizontalAlignment: Text.horizontalAlignment
+            horizontalAlignment: Text.AlignHCenter
         }
     }
 
@@ -107,7 +115,7 @@ Rectangle
         {
             if (mouse.button === Qt.RightButton)
                 root.rightClicked(mouse.x + root.x, mouse.y + root.y)
-            else root.leftClicked()
+            else root.clicked()
         }
         onDoubleClicked: root.doubleClicked()
     }

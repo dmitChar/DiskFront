@@ -1,4 +1,5 @@
 #include "filemodel.h"
+#include <algorithm>
 
 FileModel::FileModel(QObject *parent)
     :QAbstractListModel(parent)
@@ -26,6 +27,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
         case SizeBytesRole: return f.sizeBytes;
         case HumanSizeRole: return f.humanSize();
         case MimeTypeRole: return f.mimeType;
+        case SUffixTypeRole: return f.suffix;
         case IsSharedRole: return f.isShared;
         case ShareTokenRole: return f.shareToken;
         case IconNameRole: return f.iconName();
@@ -48,6 +50,7 @@ QHash<int, QByteArray> FileModel::roleNames() const
         {SizeBytesRole, "sizeBytes"},
         {HumanSizeRole, "humanSize"},
         {MimeTypeRole, "mimeType"},
+        {SUffixTypeRole, "suffixType"},
         {IsSharedRole, "isShared"},
         {ShareTokenRole, "shareToken"},
         {IconNameRole, "iconName"},
@@ -67,7 +70,7 @@ void FileModel::setFiles(const QJsonArray &arr, const QString &path)
             m_items.append(FileItem::fromJson(v.toObject()));
     }
     m_currentPath = path;
-    sort();
+    sort(m_sortType);
     endResetModel();
     emit currentPathChanged();
     emit countChanged();
@@ -114,7 +117,61 @@ int FileModel::indexOf(const QString &path) const
     return -1;
 }
 
-void FileModel::sort()
+QString FileModel::sort(SortType type)
 {
+    m_sortType = type;
+    beginResetModel();
+    QString error = "";
 
+    switch (m_sortType)
+    {
+    case NameSortUp:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+            return item1.name < item2.name;
+        });
+        break;
+
+    case NameSortDown:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+            return item1.name > item2.name;
+        });
+        break;
+
+    case SizeSortUp:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+             return item1.sizeBytes < item2.sizeBytes;
+        });
+        break;
+
+    case SizeSortDown:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+            return item1.sizeBytes > item2.sizeBytes;
+        });
+        break;
+
+    case DataSortUp:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+            return item1.updatedAt < item2.updatedAt;
+        });
+        break;
+
+    case DataSortDown:
+        std::sort(m_items.begin(), m_items.end(), [] (const FileItem &item1, const FileItem &item2)
+        {
+            return item1.updatedAt > item2.updatedAt;
+        });
+        break;
+
+    default:
+        error = "Unknown sort error";
+        break;
+    }
+
+    endResetModel();
+    return error;
 }

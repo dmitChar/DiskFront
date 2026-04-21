@@ -11,7 +11,7 @@
 class FileController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString currentPath READ currentPath NOTIFY currentPathChanged)
+    Q_PROPERTY(QString currentPath READ currentPath NOTIFY pathChanged)
     Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
     Q_PROPERTY(QString error READ error NOTIFY errorChanged)
     Q_PROPERTY(QStringList breadcrumbs READ breadcrumbs NOTIFY pathChanged)
@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE void moveFile(const QString &from, const QString &to);
     Q_INVOKABLE void deleteItem(const QString &path);
     Q_INVOKABLE void clearError();
+    Q_INVOKABLE void sort(int type);
 
     void setBusy(bool v);
     void setError(const QString &error);
@@ -46,12 +47,10 @@ private:
     TransferModel *m_transfers;
     QString m_currentPath = "/";
     bool m_busy = false;
-    QStringList m_breadcrumbs;
-    QString m_error;
+    QString m_error = "";
 
 
 signals:
-    void currentPathChanged();
     void busyChanged();
     void errorChanged();
     void uploadFinished();

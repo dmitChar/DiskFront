@@ -10,7 +10,7 @@ QtObject {
     readonly property color borderStrong:"#C8C7C0"
 
     readonly property color accent:      "#5B4CE8"
-    readonly property color accentHover: "#4A3DD6"
+    readonly property color accentHover: "#0030ff"
     readonly property color accentLight: "#EEEDFE"
 
     readonly property color textPrimary:   "#1A1A18"
@@ -66,18 +66,18 @@ QtObject {
     // ── Icon names → unicode symbols ─────────────────────────────────────────
     function iconForType(iconName) {
         var map = {
-            "folder":       "📁",
-            "image":        "🖼",
-            "video":        "🎬",
-            "audio":        "🎵",
-            "pdf":          "📄",
-            "archive":      "📦",
-            "document":     "📝",
-            "spreadsheet":  "📊",
-            "presentation": "📈",
-            "text":         "📃",
-            "file":         "📄"
+            "folder":       "qrc:/icons/icons/icon_folder.png",
+            "image":        "",
+            "video":        "",
+            "audio":        "",
+            "pdf":          "",
+            "archive":      "",
+            "document":     "",
+            "spreadsheet":  "",
+            "presentation": "",
+            "text":         "qrc:/icons/icons/icon_textFile1.png",
+            "file":         "qrc:/icons/icons/icon_textFile2.png"
         }
-        return map[iconName] || "📄"
+        return map[iconName] || "qrc:/icons/icons/icon_textFile2.png"
     }
 }

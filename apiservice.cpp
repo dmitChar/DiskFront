@@ -43,7 +43,7 @@ QNetworkRequest APIService::makeRequest(const QString &endpoint, const QUrlQuery
 
     req.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
 
-    qDebug() << "[ApiService] makeRequest" << url;
+    qDebug() << "[ApiService] makeRequest" << url <<  "with token:" << m_token;
 
     return req;
 }
@@ -106,9 +106,7 @@ void APIService::handleReply(QNetworkReply *reply, ApiCallback cb)
             r.httpCode = httpCode;
             cb(r);
         }
-
     });
-
 }
 
 

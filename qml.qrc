@@ -11,6 +11,16 @@
         <file>BreadCrumbs.qml</file>
         <file>NewFolderDialog.qml</file>
         <file>FileCard.qml</file>
+        <file>FileView.qml</file>
+        <file>FileRow.qml</file>
+        <file>CustomToolBar.qml</file>
+        <file>TransferPanel.qml</file>
+        <file>ContextMenu.qml</file>
+        <file>SideBar.qml</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/icons">
+        <file>icons/icon_folder.png</file>
+        <file>icons/icon_textFile1.png</file>
+        <file>icons/icon_textFile2.png</file>
+    </qresource>
 </RCC>

@@ -12,12 +12,12 @@ QStringList FileController::breadcrumbs() const
 {
     if (m_currentPath == "/" || m_currentPath.isEmpty())
         return {"/"};
-    QStringList parts = m_currentPath.split("/");
+    QStringList parts = m_currentPath.split("/", Qt::SkipEmptyParts);
     QStringList crumbs;
     crumbs << "/";
 
     for (const auto &part : parts)
-        crumbs.append(part);
+        crumbs << part;
     return crumbs;
 }
 
@@ -28,11 +28,17 @@ void FileController::navigateTo(const QString &path)
 
 void FileController::navigateUp()
 {
-    if (m_currentPath == "/" || m_currentPath.isEmpty()) return;
-    QString parent = m_currentPath.section('/', 0, 2);
+    if (m_currentPath == "/" || m_currentPath.isEmpty())
+        return;
+    QStringList strList = m_currentPath.split("/");
+    strList.removeLast();
 
-    if (parent.isEmpty())
-        parent = "/";
+    QString parent = "/";
+    if (!strList.isEmpty())
+        parent += strList.join("/");
+
+    //QString parent = m_currentPath.section('/', 0, 2);
+
     loadDir(parent);
 }
 
@@ -153,6 +159,15 @@ void FileController::downloadFile(const QString &remotePath, const QString &loca
 void FileController::clearError()
 {
     setError({});
+}
+
+void FileController::sort(int type)
+{
+    setBusy(true);
+    QString m_error = m_model->sort(static_cast<FileModel::SortType>(type));
+    if (m_error != "")
+        setError(m_error);
+    setBusy(false);
 }
 
 void FileController::setBusy(bool v)

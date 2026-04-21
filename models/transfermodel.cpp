@@ -53,6 +53,19 @@ int TransferModel::activeCount() const
     return n;
 }
 
+void TransferModel::clearCompleted()
+{
+    beginResetModel();
+    m_transfers.erase(
+    std::remove_if(m_transfers.begin(), m_transfers.end(), [] (const Transfer &t)
+    {
+        return t.state == TransferState::Done || t.state == TransferState::Failed;
+    }), m_transfers.end());
+
+    endResetModel();
+    emit activeCountChanged();
+}
+
 int TransferModel::indexById(int id) const
 {
     for (int i = 0; i < m_transfers.size(); ++i)
@@ -69,8 +82,8 @@ int TransferModel::addUpload(const QString &name, const QString &remotePath, QNe
     t.path = remotePath; t.isUpload = true;
     t.state = TransferState::Active; t.reply = reply;
 
-    beginInsertRows({}, 0, 0);
-    m_transfers.prepend(t);
+    beginInsertRows({}, m_transfers.size(), m_transfers.size());
+    m_transfers.append(t);
     endInsertRows();
 
     connectReply(id, reply, true);
@@ -132,6 +145,28 @@ void TransferModel::connectReply(int id, QNetworkReply *reply, bool isUpload)
     });
 }
 
+/**
+ * @brief TransferModel::updateProgress Функция обновляющая количество загруженных байт в модели для указанного трансфера
+ * @param id Номер трансфера, для которого обновляются данные
+ * @param done Количество скачанных/загруженных байт
+ * @param total Общий размер файла в байтах
+ */
+void TransferModel::updateProgress(int id, qint64 done, qint64 total)
+{
+    if (done == 0) return;
+    int idx = indexById(id);
+    if (idx < 0) return;
+    m_transfers[idx].bytesDone = done;
+    m_transfers[idx].bytesTotal = total;
+    auto mi = index(idx);
+    emit dataChanged(mi, mi, {ProgressRole});
+}
+
+/**
+ * @brief TransferModel::setFailed Функция, уведомляющая о том, что загрузка файла была завершена аварийно
+ * @param id Номер трансфера, для которого не удлалась загрузка
+ * @param errorMsg Сообщение об ошибке от reply
+ */
 void TransferModel::setFailed(int id, const QString &errorMsg)
 {
     int idx = indexById(id);
@@ -162,12 +197,3 @@ void TransferModel::setDone(int id)
     emit activeCountChanged();
 }
 
-void TransferModel::updateProgress(int id, qint64 done, qint64 total)
-{
-    int idx = indexById(id);
-    if (idx < 0) return;
-    m_transfers[idx].bytesDone = done;
-    m_transfers[idx].bytesDone = total;
-    auto mi = index(idx);
-    emit dataChanged(mi, mi, {ProgressRole});
-}

@@ -20,7 +20,8 @@ SOURCES += \
     models/usermodel.cpp \
     Controllers/authcontroller.cpp \
     models/transfermodel.cpp \
-    Controllers/filecontroller.cpp
+    Controllers/filecontroller.cpp \
+    models/proxymodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,7 +45,8 @@ HEADERS += \
     Controllers/authcontroller.h \
     models/transfermodel.h \
     Utils/fileitem.h \
-    Controllers/filecontroller.h
+    Controllers/filecontroller.h \
+    models/proxymodel.h
 
 DISTFILES += \
     loginForm.qml \
@@ -58,4 +60,9 @@ DISTFILES += \
     BreadCrumbs.qml \
     NewFolderDialog.qml \
     FileCard.qml \
-    FileView.qml
+    FileView.qml \
+    FileRow.qml \
+    CustomToolBar.qml \
+    TransferPanel.qml \
+    ContextMenu.qml \
+    SideBar.qml

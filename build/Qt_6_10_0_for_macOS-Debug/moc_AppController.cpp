@@ -39,6 +39,7 @@ template <> constexpr inline auto AppController::qt_create_metaobjectdata<qt_met
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
+<<<<<<< HEAD
         "AppController",
         "refreshQuota",
         ""
@@ -47,6 +48,12 @@ template <> constexpr inline auto AppController::qt_create_metaobjectdata<qt_met
     QtMocHelpers::UintData qt_methods {
         // Method 'refreshQuota'
         QtMocHelpers::MethodData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
+=======
+        "AppController"
+    };
+
+    QtMocHelpers::UintData qt_methods {
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -68,12 +75,18 @@ Q_CONSTINIT const QMetaObject AppController::staticMetaObject = { {
 void AppController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<AppController *>(_o);
+<<<<<<< HEAD
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->refreshQuota(); break;
         default: ;
         }
     }
+=======
+    (void)_t;
+    (void)_c;
+    (void)_id;
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     (void)_a;
 }
 
@@ -93,6 +106,7 @@ void *AppController::qt_metacast(const char *_clname)
 int AppController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
+<<<<<<< HEAD
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -105,6 +119,8 @@ int AppController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 1;
     }
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     return _id;
 }
 QT_WARNING_POP

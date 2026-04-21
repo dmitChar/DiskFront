@@ -7,18 +7,18 @@ Row
     property var parts: []
     signal navigate(string path)
 
+    onPartsChanged: console.log("Parts:" + parts)
+
     Repeater
     {
         model: root.parts
-
-        // Вычисление пути для нажатой ссылки
-
 
         // Текст отдельного сегмента
         Text
         {
             id: txt
-            text: modelData                     // отображение имени сегмента
+            text: (modelData  === "/") ? "Главная страница / " : modelData  + " / "                 // отображение имени сегмента
+            //text: "text"
             font.family: AppTheme.fontFamily
             font.pixelSize: AppTheme.fontMd
             color: index === root.parts.length - 1 ? AppTheme.textPrimary : AppTheme.accent // Для последнего элемента - другой цвет
@@ -31,7 +31,7 @@ Row
                 onClicked:
                 {
                     if (index < root.parts.length - 1)          // Если не последний элемент, то
-                        root.navigate(parent.parent.crumbPath) // Сообщаем о том, что пользователь хочет перейти в другую директорию по ссылке
+                        root.navigate(parent.crumbPath) // Сообщаем о том, что пользователь хочет перейти в другую директорию по ссылке
                 }
                 hoverEnabled: true
                 onContainsMouseChanged:
@@ -40,6 +40,7 @@ Row
                     parent.color = (containsMouse && index < root.parts.length - 1) ? AppTheme.accentHover : (index === root.parts.length - 1 ? AppTheme.textPrimary : AppTheme.accent)
                 }
             }
+            // Вычисление пути для нажатой ссылки
             property string crumbPath:
             {
                 if (index === 0) return "/"
@@ -47,17 +48,5 @@ Row
                 return "/" + clickedPath.join("/")              // склеиваем обратно в путь
             }
         }
-
-        // Добавление слеша(/) после каждого сегмента
-        Text
-        {
-            text: "/"
-            font.family: AppTheme.fontFamily
-            font.pixelSize: AppTheme.fontMd
-            color: AppTheme.textHint
-            visible: index < root.parts.length - 1
-        }
     }
-
-
 }

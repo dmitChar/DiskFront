@@ -14,10 +14,17 @@ EQ            = =
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+<<<<<<< HEAD
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QMLMETA_LIB -DQT_QMLMODELS_LIB -DQT_QMLWORKERSCRIPT_LIB -DQT_QML_LIB -DQT_QMLINTEGRATION_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
 INCPATH       = -I../../../diskFront -I. -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -F/Users/dmitry/Qt/6.10.0/macos/lib
+=======
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_QMLMETA_LIB -DQT_QMLMODELS_LIB -DQT_QMLWORKERSCRIPT_LIB -DQT_QML_LIB -DQT_QMLINTEGRATION_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
+CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
+INCPATH       = -I../../../diskFront -I. -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -F/Users/dmitry/Qt/6.10.0/macos/lib
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 QMAKE         = /Users/dmitry/Qt/6.10.0/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +47,11 @@ DISTNAME      = diskFront1.0.0
 DISTDIR = /Users/dmitry/Desktop/portfolio/diskFront/build/Qt_6_10_0_for_macOS-Debug/.tmp/diskFront1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=13 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/dmitry/Qt/6.10.0/macos/lib
+<<<<<<< HEAD
 LIBS          = $(SUBLIBS) -F/Users/dmitry/Qt/6.10.0/macos/lib -framework QtQuick -framework QtOpenGL -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtQmlMeta -framework QtQmlModels -framework QtQmlWorkerScript -framework QtQml -framework QtNetwork -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework OpenGL   
+=======
+LIBS          = $(SUBLIBS) -F/Users/dmitry/Qt/6.10.0/macos/lib -framework QtQuick -framework QtOpenGL -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtQmlMeta -framework QtQmlModels -framework QtQmlWorkerScript -framework QtQml -framework QtNetwork -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework OpenGL   
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -91,10 +102,13 @@ DIST          = ../../loginForm.qml \
 		../../RegisterScreen.qml \
 		../../mainScreen.qml \
 		../../QuotaBar.qml \
+<<<<<<< HEAD
 		../../BreadCrumbs.qml \
 		../../NewFolderDialog.qml \
 		../../FileCard.qml \
 		../../FileView.qml \
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/spec_pre.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/device_config.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/common/unix.conf \
@@ -401,7 +415,10 @@ DIST          = ../../loginForm.qml \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/resources.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/moc.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/opengl.prf \
+<<<<<<< HEAD
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/uic.prf \
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/thread.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/qmake_use.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/file_copies.prf \
@@ -757,7 +774,10 @@ Makefile: ../../diskFront.pro /Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang/q
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/resources.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/moc.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/opengl.prf \
+<<<<<<< HEAD
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/uic.prf \
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/thread.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/qmake_use.prf \
 		/Users/dmitry/Qt/6.10.0/macos/mkspecs/features/file_copies.prf \
@@ -771,7 +791,10 @@ Makefile: ../../diskFront.pro /Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang/q
 		../../qml.qrc \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Resources/QtQuick.prl \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Resources/QtOpenGL.prl \
+<<<<<<< HEAD
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl \
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Resources/QtGui.prl \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Resources/QtQmlMeta.prl \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Resources/QtQmlModels.prl \
@@ -1086,7 +1109,10 @@ Makefile: ../../diskFront.pro /Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang/q
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/resources.prf:
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/moc.prf:
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/opengl.prf:
+<<<<<<< HEAD
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/uic.prf:
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/unix/thread.prf:
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/qmake_use.prf:
 /Users/dmitry/Qt/6.10.0/macos/mkspecs/features/file_copies.prf:
@@ -1100,7 +1126,10 @@ Makefile: ../../diskFront.pro /Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang/q
 ../../qml.qrc:
 /Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Resources/QtQuick.prl:
 /Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Resources/QtOpenGL.prl:
+<<<<<<< HEAD
 /Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl:
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 /Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Resources/QtGui.prl:
 /Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Resources/QtQmlMeta.prl:
 /Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Resources/QtQmlModels.prl:
@@ -1166,11 +1195,16 @@ compiler_rcc_clean:
 qrc_qml.cpp: ../../qml.qrc \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/rcc \
 		../../AppButton.qml \
+<<<<<<< HEAD
 		../../FileCard.qml \
 		../../NewFolderDialog.qml \
 		../../QuotaBar.qml \
 		../../AppTheme.qml \
 		../../BreadCrumbs.qml \
+=======
+		../../QuotaBar.qml \
+		../../AppTheme.qml \
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		../../InputField.qml \
 		../../RegisterScreen.qml \
 		../../loginForm.qml \
@@ -1196,7 +1230,11 @@ moc_filemodel.cpp: ../../models/filemodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QVariant \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qvariant.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/filemodel.h -o moc_filemodel.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/filemodel.h -o moc_filemodel.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_apiservice.cpp: ../../apiservice.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1216,7 +1254,11 @@ moc_apiservice.cpp: ../../apiservice.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QVariant \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qvariant.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../apiservice.h -o moc_apiservice.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../apiservice.h -o moc_apiservice.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_AppController.cpp: ../../Controllers/AppController.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1250,7 +1292,11 @@ moc_AppController.cpp: ../../Controllers/AppController.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers/QNetworkReply \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/AppController.h -o moc_AppController.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/AppController.h -o moc_AppController.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_usermodel.cpp: ../../models/usermodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1258,7 +1304,11 @@ moc_usermodel.cpp: ../../models/usermodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QString \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qstring.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/usermodel.h -o moc_usermodel.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/usermodel.h -o moc_usermodel.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_authcontroller.cpp: ../../Controllers/authcontroller.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1282,7 +1332,11 @@ moc_authcontroller.cpp: ../../Controllers/authcontroller.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qvariant.h \
 		../../models/usermodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/authcontroller.h -o moc_authcontroller.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/authcontroller.h -o moc_authcontroller.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_transfermodel.cpp: ../../models/transfermodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1292,7 +1346,11 @@ moc_transfermodel.cpp: ../../models/transfermodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QAbstractListModel \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qabstractitemmodel.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/transfermodel.h -o moc_transfermodel.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../models/transfermodel.h -o moc_transfermodel.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 moc_filecontroller.cpp: ../../Controllers/filecontroller.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
@@ -1321,14 +1379,21 @@ moc_filecontroller.cpp: ../../Controllers/filecontroller.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers/QNetworkReply \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		/Users/dmitry/Qt/6.10.0/macos/libexec/moc
+<<<<<<< HEAD
 	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/filecontroller.h -o moc_filecontroller.cpp
+=======
+	/Users/dmitry/Qt/6.10.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/dmitry/Qt/6.10.0/macos/mkspecs/macx-clang -I/Users/dmitry/Desktop/portfolio/diskFront -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQuick.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtOpenGL.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlMeta.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlModels.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQmlWorkerScript.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/include -I/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration -I/Users/dmitry/Qt/6.10.0/macos/lib/QtNetwork.framework/Headers -I/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/dmitry/Qt/6.10.0/macos/lib ../../Controllers/filecontroller.h -o moc_filecontroller.cpp
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+<<<<<<< HEAD
 compiler_uic_make_all:
 compiler_uic_clean:
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
 compiler_yacc_decl_make_all:
@@ -1382,8 +1447,11 @@ main.o: ../../main.cpp /Users/dmitry/Qt/6.10.0/macos/lib/QtGui.framework/Headers
 		/Users/dmitry/Qt/6.10.0/macos/include/QtQmlIntegration/qqmlintegration.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers/qqmlscriptstring.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtQml.framework/Headers/qtqmlversion.h \
+<<<<<<< HEAD
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtWidgets.framework/Headers/qapplication.h \
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 		../../Controllers/AppController.h \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/QObject \
 		/Users/dmitry/Qt/6.10.0/macos/lib/QtCore.framework/Headers/qobject.h \

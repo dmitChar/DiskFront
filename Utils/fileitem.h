@@ -5,6 +5,8 @@
 #include <QJsonObject>
 #include <QDateTime>
 #include <QVariant>
+#include <QFileInfo>
+#include "apiresponse.h"
 
 struct FileItem
 {
@@ -14,6 +16,7 @@ struct FileItem
     QString type;    // "file" | "directory"
     qint64 sizeBytes;
     QString mimeType;
+    QString suffix;
     QString checkSum;
     bool isShared = false;
     QString shareToken;
@@ -34,7 +37,8 @@ struct FileItem
         f.path      = obj["path"].toString();
         f.type      = obj["type"].toString("file");
         f.sizeBytes = obj["sizeBytes"].toVariant().toLongLong();
-        f.mimeType  = obj["mimeType"].toString();
+        f.mimeType  =  obj["mimeType"].toString();
+        f.suffix    = (f.type != "directory") ? QFileInfo(f.name).suffix(): "Папка";
         f.checkSum  = obj["checkSum"].toString();
         f.isShared  = obj["isShared"].toBool();
         f.shareToken= obj["shareToken"].toString();

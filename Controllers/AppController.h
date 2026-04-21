@@ -9,6 +9,7 @@
 #include "models/usermodel.h"
 #include "models/filemodel.h"
 #include "models/transfermodel.h"
+#include "models/proxymodel.h"
 
 class AppController : public QObject
 {
@@ -21,8 +22,11 @@ public:
     FileController *getFileCtrl() {return m_fileController; }
     UserModel *getUserModel() {return m_userModel; }
     FileModel *getFilesModel() { return m_fileModel; }
+    TransferModel *getTransferModel() {return m_transModel; }
+    ProxyModel *getProxyModel() { return m_proxyModel; }
 
     Q_INVOKABLE void refreshQuota(); // Обновление занятого дискового пространства
+    Q_INVOKABLE void setSearchText(const QString &text);
 
 private:
     APIService *m_apiService;
@@ -32,6 +36,7 @@ private:
     UserModel *m_userModel;
     FileModel *m_fileModel;
     TransferModel *m_transModel;
+    ProxyModel *m_proxyModel;
 
 
 signals:

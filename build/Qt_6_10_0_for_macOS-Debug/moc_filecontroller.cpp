@@ -9,7 +9,10 @@
 #include "../../Controllers/filecontroller.h"
 #include <QtNetwork/QSslError>
 #include <QtCore/qmetatype.h>
+<<<<<<< HEAD
 #include <QtCore/QList>
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 
 #include <QtCore/qtmochelpers.h>
 
@@ -49,16 +52,26 @@ template <> constexpr inline auto FileController::qt_create_metaobjectdata<qt_me
         "pathChanged",
         "itemDeleted",
         "path",
+<<<<<<< HEAD
         "updateQuota",
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
         "navigateTo",
         "navigateUp",
         "refresh",
         "mkdir",
+<<<<<<< HEAD
         "folderName",
         "mkCopy",
         "filename",
         "uploadFiles",
         "QList<QUrl>",
+=======
+        "name",
+        "mkCopy",
+        "filename",
+        "uploadFiles",
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
         "localPaths",
         "downloadFile",
         "remotePath",
@@ -70,8 +83,12 @@ template <> constexpr inline auto FileController::qt_create_metaobjectdata<qt_me
         "clearError",
         "currentPath",
         "busy",
+<<<<<<< HEAD
         "error",
         "breadcrumbs"
+=======
+        "error"
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -89,6 +106,7 @@ template <> constexpr inline auto FileController::qt_create_metaobjectdata<qt_me
         QtMocHelpers::SignalData<void(const QString &)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::QString, 8 },
         }}),
+<<<<<<< HEAD
         // Signal 'updateQuota'
         QtMocHelpers::SignalData<void()>(9, 2, QMC::AccessPublic, QMetaType::Void),
         // Method 'navigateTo'
@@ -135,6 +153,50 @@ template <> constexpr inline auto FileController::qt_create_metaobjectdata<qt_me
         QtMocHelpers::PropertyData<QString>(30, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
         // property 'breadcrumbs'
         QtMocHelpers::PropertyData<QStringList>(31, QMetaType::QStringList, QMC::DefaultPropertyFlags, 4),
+=======
+        // Method 'navigateTo'
+        QtMocHelpers::MethodData<void(const QString &)>(9, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 8 },
+        }}),
+        // Method 'navigateUp'
+        QtMocHelpers::MethodData<void()>(10, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'refresh'
+        QtMocHelpers::MethodData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'mkdir'
+        QtMocHelpers::MethodData<void(const QString &)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 13 },
+        }}),
+        // Method 'mkCopy'
+        QtMocHelpers::MethodData<void(const QString &)>(14, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 15 },
+        }}),
+        // Method 'uploadFiles'
+        QtMocHelpers::MethodData<void(const QStringList &)>(16, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QStringList, 17 },
+        }}),
+        // Method 'downloadFile'
+        QtMocHelpers::MethodData<void(const QString &, const QString &)>(18, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 19 }, { QMetaType::QString, 20 },
+        }}),
+        // Method 'moveFile'
+        QtMocHelpers::MethodData<void(const QString &, const QString &)>(21, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 22 }, { QMetaType::QString, 23 },
+        }}),
+        // Method 'deleteItem'
+        QtMocHelpers::MethodData<void(const QString &)>(24, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 8 },
+        }}),
+        // Method 'clearError'
+        QtMocHelpers::MethodData<void()>(25, 2, QMC::AccessPublic, QMetaType::Void),
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'currentPath'
+        QtMocHelpers::PropertyData<QString>(26, QMetaType::QString, QMC::DefaultPropertyFlags, 0),
+        // property 'busy'
+        QtMocHelpers::PropertyData<bool>(27, QMetaType::Bool, QMC::DefaultPropertyFlags, 1),
+        // property 'error'
+        QtMocHelpers::PropertyData<QString>(28, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -162,6 +224,7 @@ void FileController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 3: _t->uploadFinished(); break;
         case 4: _t->pathChanged(); break;
         case 5: _t->itemDeleted((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+<<<<<<< HEAD
         case 6: _t->updateQuota(); break;
         case 7: _t->navigateTo((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
         case 8: _t->navigateUp(); break;
@@ -173,6 +236,18 @@ void FileController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 14: _t->moveFile((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
         case 15: _t->deleteItem((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
         case 16: _t->clearError(); break;
+=======
+        case 6: _t->navigateTo((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 7: _t->navigateUp(); break;
+        case 8: _t->refresh(); break;
+        case 9: _t->mkdir((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 10: _t->mkCopy((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 11: _t->uploadFiles((*reinterpret_cast<std::add_pointer_t<QStringList>>(_a[1]))); break;
+        case 12: _t->downloadFile((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 13: _t->moveFile((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 14: _t->deleteItem((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 15: _t->clearError(); break;
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
         default: ;
         }
     }
@@ -189,8 +264,11 @@ void FileController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             return;
         if (QtMocHelpers::indexOfMethod<void (FileController::*)(const QString & )>(_a, &FileController::itemDeleted, 5))
             return;
+<<<<<<< HEAD
         if (QtMocHelpers::indexOfMethod<void (FileController::*)()>(_a, &FileController::updateQuota, 6))
             return;
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     }
     if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
@@ -198,7 +276,10 @@ void FileController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 0: *reinterpret_cast<QString*>(_v) = _t->currentPath(); break;
         case 1: *reinterpret_cast<bool*>(_v) = _t->busy(); break;
         case 2: *reinterpret_cast<QString*>(_v) = _t->error(); break;
+<<<<<<< HEAD
         case 3: *reinterpret_cast<QStringList*>(_v) = _t->breadcrumbs(); break;
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
         default: break;
         }
     }
@@ -223,6 +304,7 @@ int FileController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
+<<<<<<< HEAD
         if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 17;
@@ -231,12 +313,26 @@ int FileController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 17)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 17;
+=======
+        if (_id < 16)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 16;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 16)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 16;
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
+<<<<<<< HEAD
         _id -= 4;
+=======
+        _id -= 3;
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
     }
     return _id;
 }
@@ -276,10 +372,13 @@ void FileController::itemDeleted(const QString & _t1)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 5, nullptr, _t1);
 }
+<<<<<<< HEAD
 
 // SIGNAL 6
 void FileController::updateQuota()
 {
     QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
 }
+=======
+>>>>>>> parent of 22232b8 (Реализовано отображение данных пользователя в главном меню)
 QT_WARNING_POP
