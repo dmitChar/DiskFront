@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
+import QtQuick 6.0
+import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick.Dialogs
 
 import AppTheme 1.0
@@ -13,6 +13,7 @@ Rectangle
     property bool gridView: false
     property int rowIconSize: 23
     property int gridIconSize: 32
+    property int currentIndex: -1
 
     RowLayout
     {
@@ -216,13 +217,19 @@ Rectangle
                 {
                     if (isDir)
                         FileController.navigateTo(path)
+                    else
+                    {
+
+                    }
                 }
+
                 onContextMenuRequested: function(index, x, y)
                 {
                     toolbar.resetFocus()
                     contextMenu.visible_ = true
                     contextMenu.x = x
                     contextMenu.y = y
+                    root.currentIndex = index
                 }
             }
 
@@ -248,24 +255,48 @@ Rectangle
 
     // Диалог выбора файлов для загрузки
     FileDialog
+    {
+        id: fileDialog
+        title: "Выберите файл для загрузки"
+        nameFilters: ["All files (*)", "Images (*.png *.jgp)", "Documents (*.pdf *.txt)"]
+        //fileMode: FileDialog.OpenFiles
+        onAccepted:
         {
-            id: fileDialog
-            title: "Выберите файл для загрузки"
-            nameFilters: ["All files (*)", "Images (*.png *.jgp)", "Documents (*.pdf *.txt)"]
-            fileMode: FileDialog.OpenFiles
-            onAccepted:
-            {
-                FileController.uploadFiles(selectedFiles)
-                console.log("Выбранный файл " + selectedFiles)
-            }
-
+            FileController.uploadFiles(fileUrls)
+            console.log("Выбранный файл " + fileUrls)
         }
+    }
+
+
 
     // Контекстное меню
-    ContextMenu
-    {
-        id: contextMenu
-    }
+    // ContextMenu
+    // {
+    //     id: contextMenu
+    //     onDeleteRequested:
+    //     {
+    //         FileController.deleteItem(root.currentIndex)
+    //     }
+    //     onRenameRequested:
+    //     {
+    //         fileView.setIndexToEdit(root.currentIndex)
+    //     }
+    //     onDownloadRequested:
+    //     {
+    //         FileController.downloadFile(root.currentIndex)
+    //     }
+    //     onOpenFile:
+    //     {
+    //         if (FileController.isDir(root.currentIndex))
+    //         {
+    //             FileController.navigateTo(FileController.getFilePath(root.currentIndex))
+    //         }
+    //         else
+    //         {
+
+    //         }
+    //     }
+    // }
 
     Connections
     {

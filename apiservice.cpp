@@ -7,10 +7,12 @@
 #include <QUrl>
 #include <QHttpMultiPart>
 #include <QMimeDatabase>
+#include <QStandardPaths>
 
 APIService::APIService(QObject *parent)
     : QObject(parent), m_netManager(new QNetworkAccessManager)
 {
+    m_cache = new FileCacheManager(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/CloudDisk-cache", this);
 }
 
 //--------------- Service ----------------
@@ -53,60 +55,60 @@ QNetworkRequest APIService::makeRequest(const QString &endpoint, const QUrlQuery
 void APIService::handleReply(QNetworkReply *reply, ApiCallback cb)
 {
     connect(reply, &QNetworkReply::finished, this, [reply, cb, this] ()
-    {
-        reply->deleteLater();
+            {
+                reply->deleteLater();
 
-        // Чтение ответа сервера
-        QByteArray data = reply->readAll();
-        int httpCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                // Чтение ответа сервера
+                QByteArray data = reply->readAll();
+                int httpCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-        // Парсинг данных в json
-        QJsonParseError error;
-        QJsonDocument doc = QJsonDocument::fromJson(data, &error);
-        if (error.error != QJsonParseError::NoError)
-        {
-            cb(ApiResponse::fail("Invalid JSON: " + error.errorString(), httpCode));
-            return;
-        }
+                // Парсинг данных в json
+                QJsonParseError error;
+                QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+                if (error.error != QJsonParseError::NoError)
+                {
+                    cb(ApiResponse::fail("Invalid JSON: " + error.errorString(), httpCode));
+                    return;
+                }
 
-//        // Проверка на ошибки в ответе сервера
-//        if (reply->error() != QNetworkReply::NoError)
-//        {
-//            emit networkError(reply->errorString());
-//            qDebug() << "[ApiService] HandleReply error:" << reply->errorString() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-//            cb(ApiResponse::fail(reply->errorString(), reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()));
-//            return;
-//        }
+                //        // Проверка на ошибки в ответе сервера
+                //        if (reply->error() != QNetworkReply::NoError)
+                //        {
+                //            emit networkError(reply->errorString());
+                //            qDebug() << "[ApiService] HandleReply error:" << reply->errorString() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                //            cb(ApiResponse::fail(reply->errorString(), reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()));
+                //            return;
+                //        }
 
-        // Парсинг json'a
-        QJsonObject root = doc.object();
-        bool success = root["success"].toBool();
+                // Парсинг json'a
+                QJsonObject root = doc.object();
+                bool success = root["success"].toBool();
 
-        // Выполнилась ли операция на сервере успешно
-        if (!success)
-        {
-            QString msg = root["error"].toObject()["message"].toString("Unknown error");
-            qDebug() << "[ApiService] HandleReply error:" << reply->errorString() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << "| message:" << msg;
+                // Выполнилась ли операция на сервере успешно
+                if (!success)
+                {
+                    QString msg = root["error"].toObject()["message"].toString("Unknown error");
+                    qDebug() << "[ApiService] HandleReply error:" << reply->errorString() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << "| message:" << msg;
 
-            cb(ApiResponse::fail(msg, httpCode));
-            return;
-        }
+                    cb(ApiResponse::fail(msg, httpCode));
+                    return;
+                }
 
-        QString message = root["message"].toString();
+                QString message = root["message"].toString();
 
-        if (root["data"].isArray())
-        {
-            ApiResponse r = ApiResponse::okArray(root["data"].toArray(), message);
-            r.httpCode = httpCode;
-            cb(r);
-        }
-        else
-        {
-            ApiResponse r = ApiResponse::ok(root["data"].toObject(), message);
-            r.httpCode = httpCode;
-            cb(r);
-        }
-    });
+                if (root["data"].isArray())
+                {
+                    ApiResponse r = ApiResponse::okArray(root["data"].toArray(), message);
+                    r.httpCode = httpCode;
+                    cb(r);
+                }
+                else
+                {
+                    ApiResponse r = ApiResponse::ok(root["data"].toObject(), message);
+                    r.httpCode = httpCode;
+                    cb(r);
+                }
+            });
 }
 
 
@@ -114,7 +116,6 @@ void APIService::handleReply(QNetworkReply *reply, ApiCallback cb)
 
 void APIService::sendPost(const QString &endpoint, const QJsonObject &body, ApiCallback cb)
 {
-    qDebug() << "[ApiService] Sending Post";
     auto *reply = m_netManager->post(makeRequest(endpoint), QJsonDocument(body).toJson(QJsonDocument::Compact));
     handleReply(reply, std::move(cb));
 }
@@ -127,7 +128,20 @@ void APIService::sendGet(const QString &endpoint, const QUrlQuery &query, ApiCal
 
 void APIService::sendDelete(const QString &endpoint, const QUrlQuery &q, ApiCallback cb)
 {
-    auto *reply = m_netManager->deleteResource(makeRequest(endpoint, q));
+    QNetworkReply *reply;
+    if (!q.isEmpty())
+        reply = m_netManager->deleteResource(makeRequest(endpoint, q));
+    else reply = m_netManager->deleteResource(makeRequest(endpoint));
+    handleReply(reply, std::move(cb));
+}
+
+void APIService::sendPut(const QString &endpoint, const QString &q, const QJsonObject &body, ApiCallback cb)
+{
+    QUrlQuery query;
+    query.addQueryItem("path", q);
+    QNetworkReply *reply;
+    if (!q.isEmpty() && !body.isEmpty())
+        reply = m_netManager->put(makeRequest(endpoint, query), QJsonDocument(body).toJson(QJsonDocument::Compact));
     handleReply(reply, std::move(cb));
 }
 
@@ -160,10 +174,10 @@ void APIService::postRegister(const QString &login, const QString &email, const 
     obj["password"] = password;
 
     sendPost("/api/auth/register", obj, std::move(cb));
-
 }
 
 //--------------- FILES API ----------------
+
 
 void APIService::getFiles(const QString &path, ApiCallback cb)
 {
@@ -185,6 +199,11 @@ void APIService::postCopy(const QString &from, const QString &to, ApiCallback cb
 void APIService::postMove(const QString &from, const QString &to, ApiCallback cb)
 {
     sendPost("/api/files/move", {{"from", from}, {"to", to}}, std::move(cb));
+}
+
+void APIService::postRenameFile(const QString &path, const QJsonObject &body, ApiCallback cb)
+{
+    sendPut("/api/files/rename", path, body, std::move(cb));
 }
 
 void APIService::deleteItem(const QString &path, ApiCallback cb)
@@ -247,11 +266,51 @@ QNetworkReply *APIService::uploadFile(const QString &serverDir, const QString &l
  * @param path Путь файла на сервере
  * @return Результат выполенения запроса
  */
-QNetworkReply *APIService::downloadFile(const QString &path)
+optional<QNetworkReply*>APIService::downloadFile(qint64 fileId, qint64 userId)
 {
-    QUrlQuery q;
-    q.addQueryItem("path", path);
-    return m_netManager->get(makeRequest("/api/files/download", q));
+    // Сначала поиск в кеше
+    //    QString cachedPath = m_cache->getFilePath(id);
+    //    if (!cachedPath.isEmpty() && QFile::exists(cachedPath) && QFile(cachedPath).size() > 0)
+    //    {
+    //        emit fileReady(id, cachedPath);
+    //        return nullopt;
+    //    }
+
+    //    // Если в кеше нет - отправляем запрос
+    //    QString url("/api/files/" + QString::number(id));
+    //    QNetworkReply *reply = m_netManager->get(makeRequest(url));
+
+    //    QFile *file = m_cache->openForWrite(id); // Создание пустого файла в кеше для записи данных
+
+    //    connect(reply, &QNetworkReply::readyRead, this, [=] ()
+    //    {
+    //        QByteArray chunk = reply->readAll();
+    //        file->write(chunk);
+    //        m_cache->touch(id, file->size());
+    //    });
+    //    connect(reply, &QNetworkReply::finished, this, [=]()
+    //    {
+    //        file->close();
+    //        m_cache->enforceLimit();
+    //        emit fileReady(id, file->fileName());
+
+    //        file->deleteLater();
+    //        reply->deleteLater();
+    //    });
+
+    // Сначала проверка в кеше
+    auto fileInCache = m_cache->get(fileId, userId);
+    if (fileInCache && QFile::exists(fileInCache.value()) && QFile(fileInCache.value()).size() > 0)
+    {
+        emit fileReady(fileId, fileInCache.value());
+        return nullopt;
+    }
+
+    // Если в кеше нет - отправляем запрос
+    QString url("/api/files/" + QString::number(fileId));
+    QNetworkReply *reply = m_netManager->get(makeRequest(url));
+    return reply;
+
 }
 
 

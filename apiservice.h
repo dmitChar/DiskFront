@@ -4,9 +4,14 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <functional>
+#include <optional>
 
+#include "filecachemanager.h"
 #include "Utils/apiresponse.h"
 #include "Utils/fileitem.h"
+
+using std::optional;
+using std::nullopt;
 
 using ApiCallback = std::function<void(ApiResponse)>;
 
@@ -29,10 +34,11 @@ public:
     void postMkdir(const QString &path, ApiCallback cb);
     void postCopy(const QString &from, const QString &to, ApiCallback cb);
     void postMove(const QString &from, const QString &to, ApiCallback cb);
+    void postRenameFile(const QString &path, const QJsonObject &body, ApiCallback cb);
     void deleteItem(const QString &path, ApiCallback cb);
     void getUserQuota(ApiCallback cb);
     QNetworkReply *uploadFile(const QString &serverDir, const QString &localPath, const QString &fileName, const QByteArray &data);
-    QNetworkReply *downloadFile(const QString &path);
+    optional<QNetworkReply *> downloadFile(qint64 fileId, qint64 userId);
 
     //---- Service ------
     void setBaseUrl(const QString &newBaseUrl);
@@ -45,6 +51,7 @@ private:
     void sendPost(const QString &endpoint, const QJsonObject &body, ApiCallback cb);
     void sendGet(const QString &endpoint, const QUrlQuery &query, ApiCallback cb);
     void sendDelete(const QString &endpoint, const QUrlQuery &q, ApiCallback cb);
+    void sendPut(const QString &endpoint, const QString &q, const QJsonObject &body, ApiCallback cb);
 
     //---- Service ------
     void handleReply(QNetworkReply *reply, ApiCallback cb);
@@ -53,6 +60,7 @@ private:
 
 private:
     QNetworkAccessManager *m_netManager;
+    FileCacheManager *m_cache;
 
     QString m_baseUrl;
     QString m_token;
@@ -62,6 +70,7 @@ signals:
     void networkError(const QString &error);
     void tokenChanged();
     void baseUrlChanged();
+    void fileReady(qint64 id, QString path);
 
 };
 

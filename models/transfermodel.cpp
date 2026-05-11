@@ -91,12 +91,12 @@ int TransferModel::addUpload(const QString &name, const QString &remotePath, QNe
     return id;
 }
 
-int TransferModel::addDownload(const QString &name, const QString &remotePath, const QString &localPath, QNetworkReply *reply)
+int TransferModel::addDownload(const QString &name, const QString &localPath, QNetworkReply *reply)
 {
     int id = m_nextId++;
     Transfer t;
     t.id = id; t.name = name;
-    t.path = remotePath; t.localPath = localPath;
+    t.localPath = localPath;
     t.isUpload = false; t.state = TransferState::Active; t.reply = reply;
 
     beginInsertRows({}, 0, 0);

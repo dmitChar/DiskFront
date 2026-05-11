@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import AppTheme 1.0
 
@@ -33,13 +33,21 @@ Rectangle
             ToolTip.text: "Подняться на каталог вверх"
             ToolTip.delay: 150
 
+//            contentItem: Image {
+//                source: "qrc:/icons/icons/ArrowLeft.png"
+//                width: 25
+//                height: 25
+//                horizontalAlignment: Image.AlignHCenter
+//                verticalAlignment: Image.AlignVCenter
+//            }
+
             contentItem: Text
             {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: "←"
                 font.pixelSize: 18
-                color: AppTheme.textSecondary
+                color: AppTheme.textPrimary
             }
 
             background: Rectangle
@@ -85,7 +93,15 @@ Rectangle
             {
                 anchors { fill: parent; leftMargin: 10; rightMargin: 8 }
                 spacing: AppTheme.sp8
-                Text { text: ""; font.pixelSize: 13; anchors.verticalCenter: parent.verticalCenter} // TO DO добавить иконку поиска
+
+//                Image
+//                {
+//                    width: 14
+//                    height: 14
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    source: "qrc:/icons/icons/IconSearch.png"
+//                    visible: searchInput.text === "" && !searchInput.activeFocus
+//                }
 
                 // Поле поиска
                 TextInput
@@ -108,6 +124,12 @@ Rectangle
                     onAccepted:
                     {
                         ProxyModel.search = searchInput.text.trim()
+                        parent.focus = false
+                    }
+
+                    Keys.onEscapePressed:
+                    {
+                        console.log("hyu")
                         parent.focus = false
                     }
                 }
@@ -137,7 +159,7 @@ Rectangle
             // Таймер для задержки поиска после ввода символа
             Timer
             {
-                id: searchTimer; interval: 400
+                id: searchTimer; interval: 900
                 onTriggered:
                 {
                     ProxyModel.search = searchInput.text.trim()
@@ -230,7 +252,8 @@ Rectangle
         // Нижняя линия(граница) header'a
         Rectangle
         {
-            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            Layout.alignment: { left: parent.left; right: parent.right; bottom: parent.bottom }
+            //anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: 1; color: AppTheme.border
         }
     }

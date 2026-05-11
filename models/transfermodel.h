@@ -70,7 +70,7 @@ public:
 
     // Функции
     int addUpload(const QString &name, const QString &remotePath, QNetworkReply *reply);
-    int addDownload(const QString &name, const QString &remotePath, const QString &localPath, QNetworkReply *reply);
+    int addDownload(const QString &name, const QString &localPath, QNetworkReply *reply);
 
     Q_INVOKABLE int activeCount() const;
     Q_INVOKABLE void clearCompleted();

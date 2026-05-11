@@ -30,7 +30,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
         case SUffixTypeRole: return f.suffix;
         case IsSharedRole: return f.isShared;
         case ShareTokenRole: return f.shareToken;
-        case IconNameRole: return f.iconName();
+        case IconNameRole: return f.iconName;
         case IsDirRole: return f.isDir();
         case CreatedAtRole: return f.createdAt.toString("dd.MM.yyyy");
         case UpdatedAtRole: return f.updatedAt.toString("dd.MM.yyyy HH:mm");

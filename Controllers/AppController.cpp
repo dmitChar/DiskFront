@@ -8,10 +8,11 @@ AppController::AppController(QObject *parent)
     m_fileModel = new FileModel(this);
     m_transModel = new TransferModel(this);
     m_userModel = new UserModel(this);
+    m_proxyModel = new ProxyModel(this);
 
     m_authController = new AuthController(m_apiService, m_userModel, this);
-    m_fileController = new FileController(m_apiService, m_fileModel, m_transModel, this);
-    m_proxyModel = new ProxyModel(this);
+    m_fileController = new FileController(m_apiService, m_fileModel, m_transModel, m_proxyModel, m_userModel, this);
+
 
     m_apiService->setBaseUrl("http://127.0.0.1:8080");
     m_authController->loadSavedSession();
@@ -27,15 +28,15 @@ void AppController::refreshQuota()
     m_fileController->setBusy(true);
     m_fileController->setError({});
     m_apiService->getUserQuota([this] (ApiResponse r)
-    {
-        if (r.succes)
-            m_userModel->setQuotaFromJson(r.data);
-        else
-            m_fileController->setError(r.errorMsg);
-        m_fileController->setBusy(false);
+                               {
+                                   if (r.succes)
+                                       m_userModel->setQuotaFromJson(r.data);
+                                   else
+                                       m_fileController->setError(r.errorMsg);
+                                   m_fileController->setBusy(false);
 
-        return;
-    });
+                                   return;
+                               });
 }
 
 void AppController::setSearchText(const QString &text)

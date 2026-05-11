@@ -13,7 +13,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    filecachemanager.cpp \
         main.cpp \
+    media/localmediaproxy.cpp \
     models/filemodel.cpp \
     apiservice.cpp \
     Controllers/AppController.cpp \
@@ -37,6 +39,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    filecachemanager.h \
+    media/localmediaproxy.h \
     models/filemodel.h \
     apiservice.h \
     Utils/apiresponse.h \
@@ -64,5 +68,5 @@ DISTFILES += \
     FileRow.qml \
     CustomToolBar.qml \
     TransferPanel.qml \
-    ContextMenu.qml \
-    SideBar.qml
+    SideBar.qml \
+    ContextMenu.qml

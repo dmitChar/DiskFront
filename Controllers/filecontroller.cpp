@@ -2,10 +2,9 @@
 #include <QFile>
 #include <QFileInfo>
 
-FileController::FileController(APIService *api, FileModel *model, TransferModel *transfers, QObject *parent)
-    : m_api(api), m_model(model), m_transfers(transfers), QObject(parent)
+FileController::FileController(APIService *api, FileModel *model, TransferModel *transfers, ProxyModel *proxy, UserModel *userModel, QObject *parent)
+    : m_api(api), m_model(model), m_transfers(transfers), m_proxy(proxy), m_userModel(userModel), QObject(parent)
 {
-
 }
 
 QStringList FileController::breadcrumbs() const
@@ -54,15 +53,15 @@ void FileController::mkCopy(const QString &filename)
     setBusy(true);
     setError({});
     m_api->postCopy(path + filename, path + filename + "(1)", [this] (ApiResponse r)
-    {
-        setBusy(false);
-        if (!r.succes)
-        {
-            setError(r.errorMsg);
-            return;
-        }
-        refresh();
-    });
+                    {
+                        setBusy(false);
+                        if (!r.succes)
+                        {
+                            setError(r.errorMsg);
+                            return;
+                        }
+                        refresh();
+                    });
 }
 
 void FileController::moveFile(const QString &from, const QString &to)
@@ -70,32 +69,57 @@ void FileController::moveFile(const QString &from, const QString &to)
     setBusy(true);
     setError({});
     m_api->postMove(from, to, [this] (ApiResponse r)
-    {
-        setBusy(false);
-        if (!r.succes)
-        {
-            setError(r.errorMsg);
-            return;
-        }
-        refresh();
-    });
+                    {
+                        setBusy(false);
+                        if (!r.succes)
+                        {
+                            setError(r.errorMsg);
+                            return;
+                        }
+                        refresh();
+                    });
 }
 
-void FileController::deleteItem(const QString &path)
+void FileController::deleteItem(int index)
 {
+    FileItem file = m_model->fileAt(proxyToSourceIndex(index));
+    QString path = file.path;
     setBusy(true);
     setError({});
+
     m_api->deleteItem(path, [this, path] (ApiResponse r)
-    {
-        setBusy(false);
-        if (!r.succes)
-        {
-            setError(r.errorMsg);
-            return;
-        }
-        emit itemDeleted(path);
-        refresh();
-    });
+                      {
+                          setBusy(false);
+                          if (!r.succes)
+                          {
+                              setError(r.errorMsg);
+                              return;
+                          }
+                          emit itemDeleted(path);
+                          refresh();
+                      });
+}
+
+void FileController::renameFile(int index, const QString &newName)
+{
+    FileItem file = m_model->fileAt(proxyToSourceIndex(index));
+    QString path = file.path;
+    setBusy(true);
+    setError({});
+    QJsonObject obj;
+    obj["newName"] = newName;
+
+    m_api->postRenameFile(path, obj, [this, path] (ApiResponse r)
+                          {
+                              setBusy(false);
+                              if (!r.succes)
+                              {
+                                  setError(r.errorMsg);
+                                  return;
+                              }
+
+                              refresh();
+                          });
 }
 
 void FileController::mkdir(const QString &folderName)
@@ -109,15 +133,15 @@ void FileController::mkdir(const QString &folderName)
     setBusy(true);
     setError({});
     m_api->postMkdir(path, [this] (ApiResponse r)
-    {
-        setBusy(false);
-        if (!r.succes)
-        {
-            setError(r.errorMsg);
-            return;
-        }
-        refresh();
-    });
+                     {
+                         setBusy(false);
+                         if (!r.succes)
+                         {
+                             setError(r.errorMsg);
+                             return;
+                         }
+                         refresh();
+                     });
 }
 
 /**
@@ -143,17 +167,25 @@ void FileController::uploadFiles(const QList<QUrl> &localPaths)
         Q_UNUSED(transferId)
 
         connect(reply, &QNetworkReply::finished, this, [this] ()
-        {
-            refresh();
-        });
+                {
+                    refresh();
+                });
     }
 }
 
-void FileController::downloadFile(const QString &remotePath, const QString &localPath)
+void FileController::downloadFile(qint64 fileID)
 {
-    QString name = remotePath.section('/', -1);
-    auto *reply = m_api->downloadFile(remotePath);
-    m_transfers->addDownload(name, remotePath, localPath, reply);
+    FileItem file = m_model->fileAt(proxyToSourceIndex(fileID));
+
+    auto reply = m_api->downloadFile(file.id, m_userModel->userId());
+    if (reply)
+        m_transfers->addDownload(file.name, m_currentPath + "/" + file.name, reply.value());
+
+    //connect(reply, APIService::fileReady, this);
+
+    //    QString name = remotePath.section('/', -1);
+    //    auto *reply = m_api->downloadFile(remotePath);
+    //    m_transfers->addDownload(name, remotePath, localPath, reply);
 }
 
 void FileController::clearError()
@@ -189,16 +221,40 @@ void FileController::loadDir(const QString &path)
     m_model->setLoading(true);
 
     m_api->getFiles(path, [this, path] (ApiResponse r)
-    {
-        setBusy(false);
-        m_model->setLoading(false);
-        if (!r.succes)
-        {
-            setError(r.errorMsg);
-            return;
-        }
-        m_currentPath = path.isEmpty() ? "/" : path;
-        m_model->setFiles(r.dataArray, m_currentPath);
-        emit pathChanged();
-    });
+                    {
+                        setBusy(false);
+                        m_model->setLoading(false);
+                        if (!r.succes)
+                        {
+                            setError(r.errorMsg);
+                            return;
+                        }
+                        m_currentPath = path.isEmpty() ? "/" : path;
+                        m_model->setFiles(r.dataArray, m_currentPath);
+                        emit pathChanged();
+                    });
+}
+
+QString FileController::getFileType(int index)
+{
+    return m_model->fileAt(proxyToSourceIndex(index)).getIconName();
+}
+
+bool FileController::isDir(int index)
+{
+    return m_model->fileAt(proxyToSourceIndex(index)).isDir();
+}
+
+QString FileController::getFilePath(int index)
+{
+    return m_model->fileAt(proxyToSourceIndex(index)).path;
+}
+
+int FileController::proxyToSourceIndex(int proxyIndex)
+{
+    if (proxyIndex < 0)
+        return -1;
+    QModelIndex proxyIdx = m_proxy->index(proxyIndex, 0);
+    QModelIndex sourceIdx = m_proxy->mapToSource(proxyIdx);
+    return sourceIdx.row();
 }

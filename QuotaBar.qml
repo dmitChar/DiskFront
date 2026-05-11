@@ -1,5 +1,5 @@
-import QtQuick 2.2
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Layouts
 import AppTheme 1.0
 
 Column

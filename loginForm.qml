@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 import AppTheme 1.0
 
 Rectangle
@@ -171,7 +171,7 @@ Rectangle
     Connections
     {
         target: AuthController
-        onAuthStateChanged:
+        function onAuthStateChanged()
         {
             loginField.value = ""
             passField.value = ""

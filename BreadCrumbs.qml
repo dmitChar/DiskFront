@@ -1,4 +1,4 @@
-import QtQuick 2.9
+import QtQuick
 import AppTheme 1.0
 
 Row

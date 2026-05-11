@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick
+import QtQuick.Layouts
 
 import AppTheme 1.0
 
@@ -11,7 +12,7 @@ Rectangle
     property bool   isShared:  false
     property bool   visible_:  false
 
-    signal openFolder()
+    signal openFile()
     signal downloadRequested()
     signal renameRequested()
     signal copyRequested()
@@ -83,7 +84,7 @@ Rectangle
                         switch (modelData.action)
                         {
                         case "open":
-                            root.openFolder()
+                            root.openFile()
                             break;
 
                         case "download":
@@ -91,7 +92,7 @@ Rectangle
                             break;
 
                         case "rename":
-                            root.copyRequested()
+                            root.renameRequested()
                             break;
 
                         case "copy":

@@ -18,6 +18,7 @@ struct FileItem
     QString mimeType;
     QString suffix;
     QString checkSum;
+    QString iconName = getIconName();
     bool isShared = false;
     QString shareToken;
     QDateTime createdAt;
@@ -56,7 +57,7 @@ struct FileItem
         if (sizeBytes < 1024 * 1024  * 1024) return QString("%1 MB").arg(sizeBytes / 1024.0 / 1024.0, 0, 'f', 1);
         return QString("%1 GB").arg(sizeBytes / 1024.0 / 1024.0 / 1024.0, 0, 'f', 2);
     }
-    QString iconName() const
+    QString getIconName() const
     {
         if (isDir()) return "folder";
         if (mimeType.startsWith("image/")) return "image";

@@ -7,6 +7,8 @@
 #include "apiservice.h"
 #include "models/filemodel.h"
 #include "models/transfermodel.h"
+#include "models/proxymodel.h"
+#include "models/usermodel.h"
 
 class FileController : public QObject
 {
@@ -17,7 +19,7 @@ class FileController : public QObject
     Q_PROPERTY(QStringList breadcrumbs READ breadcrumbs NOTIFY pathChanged)
 
 public:
-    explicit FileController(APIService *api, FileModel *model, TransferModel *transfers, QObject *parent = nullptr);
+    explicit FileController(APIService *api, FileModel *model, TransferModel *transfers, ProxyModel *proxy, UserModel *userModel, QObject *parent = nullptr);
 
     QString currentPath() const { return m_currentPath; }
     bool busy() const { return m_busy; }
@@ -30,21 +32,31 @@ public:
     Q_INVOKABLE void mkdir(const QString &folderName);
     Q_INVOKABLE void mkCopy(const QString &filename);
     Q_INVOKABLE void uploadFiles(const QList<QUrl> &localPaths) ;
-    Q_INVOKABLE void downloadFile(const QString &remotePath, const QString &localPath);
+    Q_INVOKABLE void downloadFile(qint64 fileID);
     Q_INVOKABLE void moveFile(const QString &from, const QString &to);
-    Q_INVOKABLE void deleteItem(const QString &path);
+    Q_INVOKABLE void deleteItem(int index);
+    Q_INVOKABLE void renameFile(int index, const QString &newName);
     Q_INVOKABLE void clearError();
     Q_INVOKABLE void sort(int type);
+
+    Q_INVOKABLE QString getFileType(int index);
+    Q_INVOKABLE bool isDir(int index);
+    Q_INVOKABLE QString getFilePath(int index);
+
 
     void setBusy(bool v);
     void setError(const QString &error);
 
 private:
     void loadDir(const QString &path);
+    int proxyToSourceIndex(int proxyIndex);
 
     APIService *m_api;
     FileModel *m_model;
+    UserModel *m_userModel;
     TransferModel *m_transfers;
+    ProxyModel *m_proxy;
+
     QString m_currentPath = "/";
     bool m_busy = false;
     QString m_error = "";
