@@ -21,6 +21,7 @@ public:
     void clear();
     void setMemoryCacheSizeMb(int Kb);
     void setDiskCacheSizeMb(int Mb);
+    QString getCachePath() { return m_cachePath; }
 
 private:
     QString cacheKey(const qint64 &fileId, const qint64 &userId) const;
@@ -29,6 +30,7 @@ private:
 private:
     mutable QCache<QString, QByteArray> m_memCache;
     QNetworkDiskCache *m_diskCache;
+    QString m_cachePath = "";
 
 };
 
