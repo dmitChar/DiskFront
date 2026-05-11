@@ -16,6 +16,7 @@ SOURCES += \
     filecachemanager.cpp \
         main.cpp \
     media/localmediaproxy.cpp \
+    media/mediaimageprovider.cpp \
     models/filemodel.cpp \
     apiservice.cpp \
     Controllers/AppController.cpp \
@@ -41,6 +42,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     filecachemanager.h \
     media/localmediaproxy.h \
+    media/mediaimageprovider.h \
     models/filemodel.h \
     apiservice.h \
     Utils/apiresponse.h \
