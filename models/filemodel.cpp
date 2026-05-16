@@ -30,10 +30,11 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
         case SUffixTypeRole: return f.suffix;
         case IsSharedRole: return f.isShared;
         case ShareTokenRole: return f.shareToken;
-        case IconNameRole: return f.iconName;
         case IsDirRole: return f.isDir();
+        case IconNameRole: return f.getIconName();
         case CreatedAtRole: return f.createdAt.toString("dd.MM.yyyy");
         case UpdatedAtRole: return f.updatedAt.toString("dd.MM.yyyy HH:mm");
+        case ShortNameRole: return f.shortName;
         default: return {};
     }
 }
@@ -56,7 +57,8 @@ QHash<int, QByteArray> FileModel::roleNames() const
         {IconNameRole, "iconName"},
         {IsDirRole, "isDir"},
         {CreatedAtRole, "createdAt"},
-        {UpdatedAtRole, "updatedAt"}
+        {UpdatedAtRole, "updatedAt"},
+        {ShortNameRole, "shortName"}
     };
 }
 
@@ -101,6 +103,16 @@ FileItem FileModel::fileAt(int index) const
     if (index < 0 || index >= m_items.size())
         return {};
     return m_items[index];
+}
+
+FileItem FileModel::fileById(qint64 fileId) const
+{
+    for (const auto file : m_items)
+    {
+        if (file.id == fileId)
+            return file;
+    }
+    return {};
 }
 
 /**

@@ -51,14 +51,23 @@ Rectangle
                    implicitHeight: 32
                    implicitWidth: 32
 
-                   contentItem: Text
+//                   contentItem: Text
+//                   {
+//                       text: "x"
+//                       font.pixelSize: 16
+//                       color: "black"
+//                       horizontalAlignment: Text.AlignHCenter
+//                       verticalAlignment: Text.AlignVCenter
+//                   }
+                   contentItem: Image
                    {
-                       text: "x"
-                       font.pixelSize: 16
-                       color: "black"
-                       horizontalAlignment: Text.AlignHCenter
-                       verticalAlignment: Text.AlignVCenter
+                       source: "qrc:/icons/icons/SmallCross.png"
+                       width: 25
+                       height: 25
+                       horizontalAlignment: Image.AlignHCenter
+                       verticalAlignment: Image.AlignVCenter
                    }
+
                    background: Rectangle
                    {
                        radius: 16

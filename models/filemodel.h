@@ -6,8 +6,6 @@
 #include <Utils/fileitem.h>
 
 
-
-
 class FileModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -31,7 +29,8 @@ public:
         IconNameRole,
         CreatedAtRole,
         UpdatedAtRole,
-        IsDirRole
+        IsDirRole,
+        ShortNameRole
     };
 
     enum SortType
@@ -59,9 +58,11 @@ public:
      void setFiles(const QJsonArray &arr, const QString &path);
      void setLoading(bool v);
      Q_INVOKABLE void clear();
-     Q_INVOKABLE FileItem fileAt(int index) const;
+     FileItem fileAt(int index) const;
+     FileItem fileById(qint64 fileId) const;
      Q_INVOKABLE int indexOf(const QString &path) const;
      QString sort(SortType type);
+
 
 
 private:

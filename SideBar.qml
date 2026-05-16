@@ -162,9 +162,11 @@ Rectangle
                     width: parent.width  - 65 - AppTheme.sp10 * 2
                 }
                 // Кнопка логаута
-                Text
+                Image
                 {
-                    text: "⏏"; font.pixelSize: 16; color: AppTheme.sidebarHint
+                    source: "qrc:/icons/icons/Exit.png"
+                    width: 16
+                    height: 16
                     anchors.verticalCenter: parent.verticalCenter
                     MouseArea
                     {
@@ -173,6 +175,18 @@ Rectangle
                         onClicked: AuthController.logout()
                     }
                 }
+
+//                Text
+//                {
+//                    text: "⏏"; font.pixelSize: 16; color: AppTheme.sidebarHint
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    MouseArea
+//                    {
+//                        anchors.fill: parent
+//                        cursorShape: Qt.PointingHandCursor
+//                        onClicked: AuthController.logout()
+//                    }
+//                }
             }
         }
         MouseArea

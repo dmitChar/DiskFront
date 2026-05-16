@@ -26,13 +26,15 @@ public:
     QString error() const { return m_error; }
     QStringList breadcrumbs() const;
 
+    FileItem getFileById(qint64 fileId);
+
     Q_INVOKABLE void navigateTo(const QString &path);
     Q_INVOKABLE void navigateUp();
     Q_INVOKABLE void refresh();
     Q_INVOKABLE void mkdir(const QString &folderName);
     Q_INVOKABLE void mkCopy(const QString &filename);
     Q_INVOKABLE void uploadFiles(const QList<QUrl> &localPaths) ;
-    Q_INVOKABLE void downloadFile(qint64 fileID);
+    Q_INVOKABLE void downloadFile(int fileID);
     Q_INVOKABLE void moveFile(const QString &from, const QString &to);
     Q_INVOKABLE void deleteItem(int index);
     Q_INVOKABLE void renameFile(int index, const QString &newName);
@@ -40,8 +42,12 @@ public:
     Q_INVOKABLE void sort(int type);
 
     Q_INVOKABLE QString getFileType(int index);
+    Q_INVOKABLE QString getMimeType(int index);
     Q_INVOKABLE bool isDir(int index);
     Q_INVOKABLE QString getFilePath(int index);
+    Q_INVOKABLE int proxyToSourceIndex(int proxyIndex);
+    Q_INVOKABLE QString getFileName(int index);
+    Q_INVOKABLE QString getFileId(int index);
 
 
     void setBusy(bool v);
@@ -49,7 +55,6 @@ public:
 
 private:
     void loadDir(const QString &path);
-    int proxyToSourceIndex(int proxyIndex);
 
     APIService *m_api;
     FileModel *m_model;

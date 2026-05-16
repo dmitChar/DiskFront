@@ -171,7 +171,7 @@ Rectangle
     Connections
     {
         target: AuthController
-        function onAuthStateChanged()
+        onAuthStateChanged:
         {
             loginField.value = ""
             passField.value = ""

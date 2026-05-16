@@ -1,6 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
-
 import AppTheme 1.0
 
 Rectangle
@@ -10,7 +8,7 @@ Rectangle
     property string fileName:  ""
     property bool   isDir:     false
     property bool   isShared:  false
-    property bool   visible_:  false
+    property bool   show:  false
 
     signal openFile()
     signal downloadRequested()
@@ -20,7 +18,7 @@ Rectangle
     signal shareRequested()
     signal unshareRequested()
 
-    visible: visible_
+    visible: root.show
     width: 195
     height: menuCol.height + AppTheme.sp8
     radius: AppTheme.radiusMd
@@ -80,7 +78,7 @@ Rectangle
                     cursorShape: Qt.PointingHandCursor
                     onClicked:
                     {
-                            root.visible_ = false
+                            root.show = false
                         switch (modelData.action)
                         {
                         case "open":
@@ -113,7 +111,6 @@ Rectangle
                         }
                     }
                 }
-
             }
         }
         Item { height: AppTheme.sp4; width: 1 }

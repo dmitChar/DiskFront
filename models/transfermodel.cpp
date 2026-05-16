@@ -37,7 +37,7 @@ QHash<int, QByteArray> TransferModel::roleNames() const
         {IdRole, "transferId"},
         {NameRole, "transferName"},
         {PathRole, "transferPath"},
-        {IsUploadRole, "isUploaded"},
+        {IsUploadRole, "isUpload"},
         {StateRole, "transferState"},
         {ProgressRole, "transferProgress"},
         {ErrorRole, "transferError"}
@@ -96,12 +96,13 @@ int TransferModel::addDownload(const QString &name, const QString &localPath, QN
     int id = m_nextId++;
     Transfer t;
     t.id = id; t.name = name;
-    t.localPath = localPath;
-    t.isUpload = false; t.state = TransferState::Active; t.reply = reply;
+    t.path = localPath; t.isUpload = false;
+    t.state = TransferState::Active; t.reply = reply;
 
-    beginInsertRows({}, 0, 0);
-    m_transfers.prepend(t);
+    beginInsertRows({}, m_transfers.size(), m_transfers.size());
+    m_transfers.append(t);
     endInsertRows();
+
     connectReply(id, reply, false);
     emit activeCountChanged();
     return id;
@@ -124,21 +125,21 @@ void TransferModel::connectReply(int id, QNetworkReply *reply, bool isUpload)
         }
         else
         {
-            int idx = indexById(id);
-            if (!isUpload && idx >= 0)
-            {
-                // Сохранение загруженного файла
-                const QString &localPath = m_transfers[idx].localPath;
-                if (!localPath.isEmpty())
-                {
-                    QFile f(localPath);
-                    if (f.open(QIODevice::WriteOnly))
-                    {
-                        f.write(reply->readAll());
-                        f.close();
-                    }
-                }
-            }
+//            int idx = indexById(id);
+//            if (!isUpload && idx >= 0)
+//            {
+//                // Сохранение загруженного файла
+//                const QString &localPath = m_transfers[idx].localPath;
+//                if (!localPath.isEmpty())
+//                {
+//                    QFile f(localPath);
+//                    if (f.open(QIODevice::WriteOnly))
+//                    {
+//                        f.write(reply->readAll());
+//                        f.close();
+//                    }
+//                }
+//            }
             setDone(id);
         }
         reply->deleteLater();

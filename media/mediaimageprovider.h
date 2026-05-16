@@ -8,6 +8,8 @@
 #include <QString>
 
 #include "filecachemanager.h"
+#include "models/transfermodel.h"
+#include "Controllers/filecontroller.h"
 
 
 // Провайдер изображений для QML.
@@ -20,7 +22,8 @@
 class MediaImageProvider : public QQuickImageProvider
 {
 public:
-    explicit MediaImageProvider(const QString &baseUrl, const QString jwtToken, FileCacheManager *cache);
+    explicit MediaImageProvider(const QString &baseUrl, const QString jwtToken, FileCacheManager *cache,
+                                FileController *file, TransferModel* transfer);
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 
@@ -31,6 +34,9 @@ public:
 private:
     QImage fetchFromNetwork(const QString &fileId);
     QImage errorImage();
+
+    FileController *m_file = nullptr;
+    TransferModel *m_trans = nullptr;
 
     QString m_baseUrl;
     QString m_token;

@@ -25,9 +25,9 @@ ApplicationWindow {
     Connections
     {
         target: TransferModel
-        function onActiveCountChanged()
+        onActiveCountChanged:
         {
-            console.log(TransferModel.activeCount)
+            //console.log(TransferModel.activeCount)
         }
     }
 
@@ -35,12 +35,12 @@ ApplicationWindow {
     Connections
     {
         target: stack.currentItem
-        function onSwitchToRegister()
+        onSwitchToRegister:
         {
             stack.push("RegisterScreen.qml")
         }
 
-        function onSwitchToLogin()
+        onSwitchToLogin:
         {
             stack.pop()
         }
@@ -50,12 +50,12 @@ ApplicationWindow {
     Connections
     {
         target: AuthController
-        function onLoginSuccess()
+        onLoginSuccess:
         {
             stack.push("mainScreen.qml")
         }
 
-        function onLogoutSuccess()
+        onLogoutSuccess:
         {
             stack.pop()
         }

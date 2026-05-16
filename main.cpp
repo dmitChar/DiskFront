@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     AppController controller;
     QQmlApplicationEngine engine;
 
+    controller.registerMediaProvider(&engine);
     engine.rootContext()->setContextProperty("controller", &controller);
     engine.rootContext()->setContextProperty("AuthController", controller.getAuth());
     engine.rootContext()->setContextProperty("FileController", controller.getFileCtrl());
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("FilesModel", controller.getFilesModel());
     engine.rootContext()->setContextProperty("TransferModel", controller.getTransferModel());
     engine.rootContext()->setContextProperty("ProxyModel", controller.getProxyModel());
+    engine.rootContext()->setContextProperty("MediaModel", controller.getMedia());
 
     qmlRegisterSingletonType(QUrl("qrc:/qml/AppTheme.qml"), "AppTheme", 1, 0, "AppTheme");
     qmlRegisterType<FileModel>("fileModel", 1, 0, "FileModel");

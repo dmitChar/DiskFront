@@ -1,13 +1,14 @@
 #include "mediaimageprovider.h"
 #include "QNetworkReply"
 
-MediaImageProvider::MediaImageProvider(const QString &baseUrl, const QString jwtToken, FileCacheManager *cache)
+MediaImageProvider::MediaImageProvider(const QString &baseUrl, const QString jwtToken, FileCacheManager *cache, FileController *file, TransferModel *transfer)
     : QQuickImageProvider(QQuickImageProvider::Image)
     , m_baseUrl(baseUrl)
     , m_token(jwtToken)
     , m_cache(cache)
+    , m_file(file)
+    , m_trans(transfer)
 {
-
 }
 
 
@@ -42,11 +43,17 @@ QImage MediaImageProvider::requestImage(const QString &id, QSize *size, const QS
     if (size)
         *size = img.size();
 
+
     if (!img.isNull() && requestedSize.isValid())
     {
         return img.scaled(requestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
-    return img;
+    else
+    {
+        qDebug() << "[ImageProvider] Image download error:" << img.isNull();
+        qDebug() << "[ImageProvider] requestedSize:" << requestedSize << "\n";
+        return img.scaled(img.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
 }
 
 QImage MediaImageProvider::fetchFromNetwork(const QString &fileId)
@@ -63,12 +70,19 @@ QImage MediaImageProvider::fetchFromNetwork(const QString &fileId)
     QUrl url(m_baseUrl + "/api/files/" + fileId + "/download");
     QNetworkRequest req(url);
     req.setRawHeader("Authorization", ("Bearer " + token).toUtf8());
+
     // Отключение кеша Qt
     req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
 
     // TO DO Пока что синхронный запрос через QEventLoop
     QEventLoop loop;
     QNetworkReply *reply = nam.get(req);
+    if (reply)
+    {
+        auto file = m_file->getFileById(fileId.toLongLong());
+        int tId = m_trans->addDownload(file.name, m_file->currentPath() + "/" + file.name, reply);
+        qDebug() << "transId:" << tId;
+    }
     QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
     loop.exec();

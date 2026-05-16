@@ -252,8 +252,7 @@ Rectangle
         // Нижняя линия(граница) header'a
         Rectangle
         {
-            Layout.alignment: { left: parent.left; right: parent.right; bottom: parent.bottom }
-            //anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: 1; color: AppTheme.border
         }
     }

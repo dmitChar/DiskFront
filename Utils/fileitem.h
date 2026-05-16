@@ -11,14 +11,14 @@
 struct FileItem
 {
     qint64 id;
-    QString name;
+    QString name;       // Имя файла с расширением
+    QString shortName;  // Имя файла без расширения
     QString path;
     QString type;    // "file" | "directory"
     qint64 sizeBytes;
     QString mimeType;
     QString suffix;
     QString checkSum;
-    QString iconName = getIconName();
     bool isShared = false;
     QString shareToken;
     QDateTime createdAt;
@@ -38,8 +38,9 @@ struct FileItem
         f.path      = obj["path"].toString();
         f.type      = obj["type"].toString("file");
         f.sizeBytes = obj["sizeBytes"].toVariant().toLongLong();
-        f.mimeType  =  obj["mimeType"].toString();
+        f.mimeType  = obj["mimeType"].toString();
         f.suffix    = (f.type != "directory") ? QFileInfo(f.name).suffix(): "Папка";
+        f.shortName = f.name; f.shortName.chop(f.suffix.size());
         f.checkSum  = obj["checkSum"].toString();
         f.isShared  = obj["isShared"].toBool();
         f.shareToken= obj["shareToken"].toString();
@@ -57,6 +58,7 @@ struct FileItem
         if (sizeBytes < 1024 * 1024  * 1024) return QString("%1 MB").arg(sizeBytes / 1024.0 / 1024.0, 0, 'f', 1);
         return QString("%1 GB").arg(sizeBytes / 1024.0 / 1024.0 / 1024.0, 0, 'f', 2);
     }
+
     QString getIconName() const
     {
         if (isDir()) return "folder";

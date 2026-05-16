@@ -8,6 +8,7 @@
 #include <QNetworkReply>
 #include <QMutex>
 #include <QMap>
+#include <QByteArrayList>
 
 class LocalMediaProxy : public QObject
 {
@@ -15,7 +16,7 @@ class LocalMediaProxy : public QObject
     Q_PROPERTY(quint16 port READ port CONSTANT)
 
 public:
-    explicit LocalMediaProxy(const QString &backendUrl, qint64 userId = -1, QObject *parent = nullptr);
+    explicit LocalMediaProxy(const QString &backendUrl, QObject *parent = nullptr);
     ~LocalMediaProxy();
 
     bool start();
@@ -31,13 +32,14 @@ public:
 private slots:
     void onNewConnection();
     void onClientReadyRead();
-    void onClientDisconnected();
+    void onDisconnected();
 
 private:
     void handleRequest(QTcpSocket *client, const QByteArray &rawHeaders);
     void sendError(QTcpSocket *client, int code, const QString &msg);
-    void proxyToBackend(QTcpSocket *client, const QString &method,
-                        const QString &fileId, const QString &rangeHeader);
+
+    void proxyToBackend(QTcpSocket *client, const QString &method, const QString &fileId, QByteArrayList &lines);
+    void proxyToBackend2(QTcpSocket *client, const QString &method, const QString &fileId, QByteArrayList &lines);
 
     QByteArray buildStatusLine(int code);
 
@@ -57,7 +59,9 @@ private:
     QMutex m_tokenMutex;
 
     // Для каждого клиентсокого сокета - свое состояние
-    QMap<QTcpSocket*, ClientState> m_clients;
+    QMap<QTcpSocket*, QByteArray> m_buffers;
+    QMap<QTcpSocket*, QTcpSocket*> m_clientToServer;
+    QMap<QTcpSocket*, QTcpSocket*> m_serverToClient;
 
     QNetworkAccessManager *m_nam;
 

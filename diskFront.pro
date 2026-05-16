@@ -57,6 +57,7 @@ HEADERS += \
     models/proxymodel.h
 
 DISTFILES += \
+    CustomContextMenu.qml \
     loginForm.qml \
     main.qml \
     AppTheme.qml \
@@ -73,4 +74,9 @@ DISTFILES += \
     CustomToolBar.qml \
     TransferPanel.qml \
     SideBar.qml \
-    ContextMenu.qml
+    DownloadFileDialog.qml \
+    FilePreviewDialog.qml \
+    ImagePreview.qml \
+    TextViewer.qml \
+    VideoViewer.qml \
+    VideoViewerQt5.qml

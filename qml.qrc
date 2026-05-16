@@ -16,11 +16,26 @@
         <file>CustomToolBar.qml</file>
         <file>TransferPanel.qml</file>
         <file>SideBar.qml</file>
-        <file>ContextMenu.qml</file>
+        <file>DownloadFileDialog.qml</file>
+        <file>FilePreviewDialog.qml</file>
+        <file>ImagePreview.qml</file>
+        <file>TextViewer.qml</file>
+        <file>VideoViewer.qml</file>
+        <file>VideoViewerQt5.qml</file>
+        <file>CustomContextMenu.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/icon_folder.png</file>
         <file>icons/icon_textFile1.png</file>
         <file>icons/icon_textFile2.png</file>
+        <file>icons/ArrowLeft.png</file>
+        <file>icons/Cross.png</file>
+        <file>icons/Exit.png</file>
+        <file>icons/Eye_crossed.png</file>
+        <file>icons/Eye.png</file>
+        <file>icons/IconSearch.png</file>
+        <file>icons/MenuBurger.png</file>
+        <file>icons/Plus.png</file>
+        <file>icons/SmallCross.png</file>
     </qresource>
 </RCC>

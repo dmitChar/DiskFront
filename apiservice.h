@@ -20,7 +20,8 @@ class APIService : public QObject
     Q_OBJECT
 public:
     explicit APIService(QObject *parent = nullptr);
-    //void getAllFiles();
+    QString getBaseUrl() const { return m_baseUrl; }
+    QString getJwtToken() const { return m_token; }
 
     //---- Auth api ------
     void postLogin(const QString & login, const QString &passwd, ApiCallback cb);
@@ -35,10 +36,10 @@ public:
     void postCopy(const QString &from, const QString &to, ApiCallback cb);
     void postMove(const QString &from, const QString &to, ApiCallback cb);
     void postRenameFile(const QString &path, const QJsonObject &body, ApiCallback cb);
-    void deleteItem(const QString &path, ApiCallback cb);
+    void deleteItem(qint64 fileId, ApiCallback cb);
     void getUserQuota(ApiCallback cb);
     QNetworkReply *uploadFile(const QString &serverDir, const QString &localPath, const QString &fileName, const QByteArray &data);
-    optional<QNetworkReply *> downloadFile(qint64 fileId, qint64 userId);
+    QNetworkReply *downloadFile(qint64 fileId, qint64 userId);
 
     //---- Service ------
     void setBaseUrl(const QString &newBaseUrl);

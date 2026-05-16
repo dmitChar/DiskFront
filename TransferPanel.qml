@@ -64,7 +64,6 @@ Rectangle
                         TransferModel.clearCompleted()
                         root.closeContextMenu()
                     }
-
                 }
             }
         }
@@ -96,6 +95,7 @@ Rectangle
                         color: model.isUpload ? AppTheme.accent : AppTheme.success
                     }
 
+                    // Название файла
                     Text
                     {
                         Layout.fillWidth: true
@@ -105,6 +105,7 @@ Rectangle
                         color: AppTheme.textPrimary
                     }
 
+                    // Прогресс в виде бара download/upload
                     Rectangle
                     {
                         width: 100; height: 6; radius: 3; color: AppTheme.border
@@ -116,6 +117,8 @@ Rectangle
 
                         }
                     }
+
+                    // Прогресс в процентах
                     Text
                     {
                         text: transferProgress + "%"

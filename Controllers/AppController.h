@@ -10,12 +10,15 @@
 #include "models/filemodel.h"
 #include "models/transfermodel.h"
 #include "models/proxymodel.h"
+#include "Controllers/mediacontroller.h"
 
 class AppController : public QObject
 {
     Q_OBJECT
 public:
     explicit AppController(QObject *parent = nullptr);
+
+    Q_PROPERTY(MediaController *media READ getMedia CONSTANT)
 
     APIService* getApi() {return m_apiService;}
     AuthController* getAuth() { return m_authController; }
@@ -24,6 +27,9 @@ public:
     FileModel *getFilesModel() { return m_fileModel; }
     TransferModel *getTransferModel() {return m_transModel; }
     ProxyModel *getProxyModel() { return m_proxyModel; }
+    MediaController *getMedia() {return m_media;}
+
+    void registerMediaProvider(QQmlEngine *engine);
 
     Q_INVOKABLE void refreshQuota(); // Обновление занятого дискового пространства
     Q_INVOKABLE void setSearchText(const QString &text);
@@ -37,6 +43,7 @@ private:
     FileModel *m_fileModel;
     TransferModel *m_transModel;
     ProxyModel *m_proxyModel;
+    MediaController *m_media;
 
 
 signals:

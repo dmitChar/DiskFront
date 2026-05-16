@@ -7,7 +7,7 @@ Row
     property var parts: []
     signal navigate(string path)
 
-    onPartsChanged: console.log("Parts:" + parts)
+    //onPartsChanged: console.log("Parts:" + parts)
 
     Repeater
     {

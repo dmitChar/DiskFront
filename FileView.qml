@@ -12,6 +12,8 @@ Item
     property bool gridView: false
     property int rowIconSize: 23
     property int gridIconSize: 32
+    property int indexToEdit: -1
+
 
     signal openItem(int index, string path, bool isDir)     // сигнал для открытия элемента по дабл клику
     signal contextMenuRequested(int index, real x, real y)  // Сигнал для открытия контекстного меню по нажатию пкм
@@ -93,14 +95,17 @@ Item
 
         delegate: FileRow
         {
+            fileId: model.index
             iconName: model.iconName
             iconSize: root.rowIconSize
             fileName: model.fileName
+            shortName: model.shortName
             fileSize: model.humanSize
             fileDate: model.updatedAt
             mimeType: model.suffixType
             isDir: model.isDir
             isShared: model.isShared
+            isEditing: root.indexToEdit === model.index
             selected: root.selectedIndex === model.index
             width: list.width
 
@@ -108,6 +113,7 @@ Item
             {
                 root.itemClicked(index)
                 root.selectedIndex = model.index
+                root.indexToEdit = -1
             }
 
             onDoubleClicked: root.openItem(model.index, model.filePath, model.isDir)
@@ -116,6 +122,10 @@ Item
             {
                 root.selectedIndex = model.index
                 root.contextMenuRequested(model.index, x, y)
+            }
+            onClearEditing:
+            {
+                root.indexToEdit = -1
             }
         }
         MouseArea
@@ -126,7 +136,10 @@ Item
             {
                 var item = grid.itemAt(point.x, point.y)
                 if (item === null)
+                {
                     root.selectedIndex = -1
+                    root.indexToEdit = -1
+                }
                 root.itemClicked(selectedIndex)
             }
         }
@@ -158,14 +171,23 @@ Item
                 anchors.horizontalCenter: parent.horizontalCenter
                 running: FilesModel.loading
 
-                Text
-                {
-                    text: "Загрузка..."
-                    font.family: AppTheme.fontFamily; font.pixelSize: AppTheme.fontMd
-                    color: AppTheme.textSecondary
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
+//                Text
+//                {
+//                    text: "Загрузка..."
+//                    font.family: AppTheme.fontFamily; font.pixelSize: AppTheme.fontMd
+//                    color: AppTheme.textSecondary
+//                    anchors.horizontalCenter: parent.horizontalCenter
+//                }
             }
         }
+    }
+    function setIndexToEdit(index)
+    {
+        root.indexToEdit = root.selectedIndex
+    }
+
+    function clearSelection()
+    {
+        root.indexToEdit = -1
     }
 }

@@ -7,9 +7,6 @@
 #include <optional>
 #include <QMap>
 
-using std::optional;
-using std::nullopt;
-
 struct ApiResponse
 {
     bool succes = false;

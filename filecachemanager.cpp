@@ -40,7 +40,7 @@ optional<QByteArray> FileCacheManager::get(const qint64 &fileId, const qint64 &u
             return data;
         }
     }
-    qDebug() << "[MediaCache] MISS" << fileId;
+    qDebug() << "[CacheManager] MISS" << fileId;
     return nullopt;
 }
 
@@ -97,6 +97,16 @@ void FileCacheManager::setMemoryCacheSizeMb(int Kb)
 void FileCacheManager::setDiskCacheSizeMb(int Mb)
 {
     m_diskCache->setMaximumCacheSize(Mb * 1024 * 1024);
+}
+
+qint64 FileCacheManager::memoryCacheUsedBytes() const
+{
+    return m_memCache.totalCost();
+}
+
+qint64 FileCacheManager::diskCacheUsedBytes() const
+{
+    return m_diskCache->cacheSize();
 }
 
 QString FileCacheManager::cacheKey(const qint64 &fileId, const qint64 &userId) const

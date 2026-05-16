@@ -1,10 +1,12 @@
-import QtQuick 6.0
+import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
 
 import AppTheme 1.0
 import fileModel 1.0
+
+
 
 Rectangle
 {
@@ -216,17 +218,32 @@ Rectangle
                 onOpenItem: function(index, path, isDir)
                 {
                     if (isDir)
+                    {
                         FileController.navigateTo(path)
+                        return
+                    }
+
+                    var id = FileController.getFileId(index)
+                    var mime = FileController.getMimeType(index)
+                    var name = FileController.getFileName(index)
+
+                    console.log("name: " + name)
+
+                    if (mime.startsWith("image/") || mime.startsWith("video/") || mime.startsWith("text/"))
+                    {
+                        previewDialog.show(id, name, mime)
+                    }
                     else
                     {
 
                     }
-                }
 
+
+                }
                 onContextMenuRequested: function(index, x, y)
                 {
                     toolbar.resetFocus()
-                    contextMenu.visible_ = true
+                    contextMenu.show = true
                     contextMenu.x = x
                     contextMenu.y = y
                     root.currentIndex = index
@@ -253,57 +270,63 @@ Rectangle
         }
     }
 
+
     // Диалог выбора файлов для загрузки
     FileDialog
     {
         id: fileDialog
         title: "Выберите файл для загрузки"
         nameFilters: ["All files (*)", "Images (*.png *.jgp)", "Documents (*.pdf *.txt)"]
-        //fileMode: FileDialog.OpenFiles
+        fileMode: FileDialog.OpenFiles
         onAccepted:
         {
-            FileController.uploadFiles(fileUrls)
-            console.log("Выбранный файл " + fileUrls)
+            FileController.uploadFiles(selectedFiles)
+            //console.log("Выбранный файл " + selectedFiles)
         }
     }
 
-
+    FilePreviewDialog
+    {
+        id: previewDialog
+        anchors.fill: parent
+        z: 70
+    }
 
     // Контекстное меню
-    // ContextMenu
-    // {
-    //     id: contextMenu
-    //     onDeleteRequested:
-    //     {
-    //         FileController.deleteItem(root.currentIndex)
-    //     }
-    //     onRenameRequested:
-    //     {
-    //         fileView.setIndexToEdit(root.currentIndex)
-    //     }
-    //     onDownloadRequested:
-    //     {
-    //         FileController.downloadFile(root.currentIndex)
-    //     }
-    //     onOpenFile:
-    //     {
-    //         if (FileController.isDir(root.currentIndex))
-    //         {
-    //             FileController.navigateTo(FileController.getFilePath(root.currentIndex))
-    //         }
-    //         else
-    //         {
+    CustomContextMenu
+    {
+        id: contextMenu
+        onDeleteRequested:
+        {
+            FileController.deleteItem(root.currentIndex)
+        }
+        onRenameRequested:
+        {
+            fileView.setIndexToEdit(root.currentIndex)
+        }
+        onDownloadRequested:
+        {
+            FileController.downloadFile(root.currentIndex)
+        }
+        onOpenFile:
+        {
+            if (FileController.isDir(root.currentIndex))
+            {
+                FileController.navigateTo(FileController.getFilePath(root.currentIndex))
+            }
+            else
+            {
 
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 
     Connections
     {
         target: fileView
         onItemClicked: function(index)
         {
-            contextMenu.visible_ = false
+            contextMenu.show = false
             toolbar.resetFocus()
 
         }
@@ -314,7 +337,7 @@ Rectangle
         target: sideBar
         onCloseContextMenu: function()
         {
-            contextMenu.visible_ = false
+            contextMenu.show = false
             toolbar.resetFocus()
         }
     }
@@ -324,7 +347,7 @@ Rectangle
         target: transferPanel
         onCloseContextMenu: function()
         {
-            contextMenu.visible_ = false
+            contextMenu.show = false
             toolbar.resetFocus()
         }
     }
@@ -334,7 +357,7 @@ Rectangle
         target: toolbar
         onCloseContextMenu: function()
         {
-            contextMenu.visible_ = false
+            contextMenu.show = false
         }
     }
 

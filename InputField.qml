@@ -75,20 +75,37 @@ Column
         }
 
         // Кнопка для показа/скрытия пароля
-        Text
+        Image
         {
             id: eyeBtn
+            width: 20
+            height: 20
             anchors {right: parent.right; rightMargin: AppTheme.sp12; verticalCenter: parent.verticalCenter }
-            text: parent.showPasswd ? "S" : "C"
-            font.pixelSize: 14
             visible: root.password
+            source: parent.showPasswd ? "qrc:/icons/icons/Eye.png" : "qrc:/icons/icons/Eye_crossed.png"
+
             MouseArea
             {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: parent.parent.showPasswd = !parent.parent.showPasswd
+                onClicked: form.showPasswd = !form.showPasswd
             }
         }
+
+//        Text
+//        {
+//            id: eyeBtn
+//            anchors {right: parent.right; rightMargin: AppTheme.sp12; verticalCenter: parent.verticalCenter }
+//            text: parent.showPasswd ? "S" : "C"
+//            font.pixelSize: 14
+//            visible: root.password
+//            MouseArea
+//            {
+//                anchors.fill: parent
+//                cursorShape: Qt.PointingHandCursor
+//                onClicked: parent.parent.showPasswd = !parent.parent.showPasswd
+//            }
+//        }
     }
 
     //для отображения ошибок
