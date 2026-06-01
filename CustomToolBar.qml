@@ -124,13 +124,14 @@ Rectangle
                     onAccepted:
                     {
                         ProxyModel.search = searchInput.text.trim()
-                        parent.focus = false
+                        searchInput.focus = false
                     }
 
                     Keys.onEscapePressed:
                     {
                         console.log("hyu")
-                        parent.focus = false
+                        searchInput.text = ""
+                        searchInput.focus = false
                     }
                 }
                 Button
@@ -159,7 +160,7 @@ Rectangle
             // Таймер для задержки поиска после ввода символа
             Timer
             {
-                id: searchTimer; interval: 900
+                id: searchTimer; interval: 800
                 onTriggered:
                 {
                     ProxyModel.search = searchInput.text.trim()
@@ -252,8 +253,9 @@ Rectangle
         // Нижняя линия(граница) header'a
         Rectangle
         {
-            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-            height: 1; color: AppTheme.border
+            Layout.fillWidth: true
+            height: 1;
+            color: AppTheme.border
         }
     }
 

@@ -58,6 +58,7 @@ HEADERS += \
 
 DISTFILES += \
     CustomContextMenu.qml \
+    DropFileWindow.qml \
     loginForm.qml \
     main.qml \
     AppTheme.qml \

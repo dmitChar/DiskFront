@@ -23,6 +23,7 @@
         <file>VideoViewer.qml</file>
         <file>VideoViewerQt5.qml</file>
         <file>CustomContextMenu.qml</file>
+        <file>DropFileWindow.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/icon_folder.png</file>

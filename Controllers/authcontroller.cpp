@@ -1,7 +1,7 @@
 #include "authcontroller.h"
 
-AuthController::AuthController(APIService *api, UserModel *model, QObject *parent)
-    : QObject(parent), m_api(api), m_user(model), m_settings("CloudDisk", "Client")
+AuthController::AuthController(APIService *api, UserModel *model, TransferModel *trans, QObject *parent)
+    : QObject(parent), m_api(api), m_user(model), m_transfer(trans), m_settings("CloudDisk", "Client")
 {
 
 }
@@ -38,6 +38,7 @@ void AuthController::login(const QString &login, const QString &password)
         return;
     }
     setBusy(true);
+    emit busyChanged();
     setError({});
 
     m_api->postLogin(login, password, [this] (ApiResponse r)
@@ -76,12 +77,13 @@ void AuthController::registerUser(const QString &login, const QString &email, co
 void AuthController::logout()
 {
     setBusy(true);
+    emit busyChanged();
     setError({});
 
     m_api->postLogout([this] (ApiResponse r)
     {
         setBusy(false);
-        if (r.succes)
+        if (!r.succes)
         {
             setError(r.errorMsg);
             return;
@@ -90,6 +92,8 @@ void AuthController::logout()
         m_api->setToken({});
         m_user->clear();
         m_loggedIn = false;
+        m_transfer->clearCompleted();
+
     });
     emit authStateChanged();
     emit logoutSuccess();

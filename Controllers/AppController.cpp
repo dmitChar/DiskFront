@@ -12,7 +12,7 @@ AppController::AppController(QObject *parent)
     m_proxyModel = new ProxyModel(this);
 
 
-    m_authController = new AuthController(m_apiService, m_userModel, this);
+    m_authController = new AuthController(m_apiService, m_userModel, m_transModel, this);
     m_fileController = new FileController(m_apiService, m_fileModel, m_transModel, m_proxyModel, m_userModel, this);
 
 

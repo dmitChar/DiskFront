@@ -17,6 +17,16 @@ Rectangle
     property int gridIconSize: 32
     property int currentIndex: -1
 
+    DropFileWindow
+    {
+        anchors.fill: parent
+        z: 100
+        onFilesDropped:
+        {
+            FileController.uploadFiles(urls)
+        }
+    }
+
     RowLayout
     {
         anchors.fill: parent

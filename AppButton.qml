@@ -76,19 +76,22 @@ Rectangle
         border.width: 2
 
         // Бегунок
-        Rectangle
-        {
-            width: 8; height: 8; radius: 4
-            color: root.textColor
-            anchors {top: parent.top; horizontalCenter: parent.horizontalCenter }
-            RotationAnimation on rotation
-            {
-                from: 0; to: 360
-                duration: 800
-                loops: Animation.Infinite
-                running: busy
+        Rectangle {
+                width: 6
+                height: 6
+                radius: 3
+                color: root.textColor
+                x: (parent.width - width)/2
+                y: 3
+
+                RotationAnimation on rotation {
+                    from: 0
+                    to: 360
+                    duration: 800
+                    loops: Animation.Infinite
+                    running: busy
+                }
             }
-        }
     }
 
     // Для считывания нажатия

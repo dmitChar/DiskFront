@@ -10,8 +10,9 @@ void ProxyModel::setSearch(const QString &s)
 {
     if (m_search == s)
         return;
+    beginFilterChange();
     m_search = s;
-    invalidateFilter();
+    endFilterChange(QSortFilterProxyModel::Direction::Rows);
     emit searchChanged();
 
 }

@@ -7,15 +7,37 @@ Rectangle
 {
     id: root
     color: AppTheme.bg
+    property bool isLoginForm: true
 
     signal switchToRegister()
+
+    RegisterScreen
+    {
+        id: regScreen
+        width: parent.width * 0.5
+        height: parent.height
+        onSwitchToLogin: root.isLoginForm = true
+    }
 
     // Прямоугольник для левой части окна(обложка программы)
     Rectangle
     {
+        id: movingRect
         width: parent.width * 0.5
         height: parent.height
         color: AppTheme.sidebarBg
+        z: 100
+        x: root.isLoginForm ? 0 : loginRect.x
+
+        Behavior on x
+        {
+
+            NumberAnimation
+            {
+                duration: 500
+                easing.type: Easing.InOutQuad
+            }
+        }
 
         // Основаня колонка для элементов
         Column
@@ -76,12 +98,17 @@ Rectangle
                 }
             }
         }
+        MouseArea
+        {
+            anchors.fill: parent
+        }
     }
 
     // Прямоугольник для правой части окна - Форма регистрации
     Rectangle
     {
-        anchors {left: parent.left; leftMargin: parent.width * 0.45; right: parent.right; top: parent.top; bottom: parent.bottom }
+        id: loginRect
+        anchors {left: parent.left; leftMargin: parent.width * 0.5; right: parent.right; top: parent.top; bottom: parent.bottom }
         color: AppTheme.surface
 
         Column
@@ -158,7 +185,7 @@ Rectangle
                         {
                             AuthController.clearError();
                             console.log("clicked to register screen")
-                            root.switchToRegister()
+                            root.isLoginForm = false
                         }
                     }
                 }

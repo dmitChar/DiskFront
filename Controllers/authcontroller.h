@@ -6,6 +6,7 @@
 
 #include "apiservice.h"
 #include "models/usermodel.h"
+#include "models/transfermodel.h"
 
 class AuthController : public QObject
 {
@@ -15,7 +16,7 @@ class AuthController : public QObject
     Q_PROPERTY(QString error READ error NOTIFY errorChanged)
 
 public:
-    explicit AuthController(APIService *api, UserModel *model, QObject *parent = nullptr);
+    explicit AuthController(APIService *api, UserModel *model, TransferModel *trans, QObject *parent = nullptr);
 
     bool loggedIn() const { return m_loggedIn; }
     bool busy()     const { return m_busy; }
@@ -30,6 +31,7 @@ public:
 private:
     APIService  *m_api = nullptr;
     UserModel   *m_user = nullptr;
+    TransferModel *m_transfer = nullptr;
     QSettings   m_settings;
     bool        m_loggedIn = false;
     bool        m_busy     = false;
